@@ -31,6 +31,12 @@ int	ft_printf(const char *fmt, ...)
 			cnt += ft_strlen(str);
 			fmt++;
 		}
+		else
+		{
+			ft_putchar_fd(*fmt, 1);
+			fmt++;
+			cnt++;
+		}
 	}
 	va_end(ap);
 	return ((int)cnt);

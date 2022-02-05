@@ -13,8 +13,7 @@ int	ft_printf(const char *fmt, ...)
 	{
 		if (*fmt != '%')
 		{
-			ft_putchar_fd(*fmt, 1);
-			fmt++;
+			ft_putchar_fd(*fmt++, 1);
 			cnt++;
 			continue ;
 		}
@@ -22,21 +21,19 @@ int	ft_printf(const char *fmt, ...)
 		{
 			ft_putchar_fd((unsigned char)va_arg(ap, int), 1);
 			cnt++;
-			fmt++;
 		}
 		else if (*fmt == 's')
 		{
 			str = va_arg(ap, char *);
 			ft_putstr_fd(str, 1);
 			cnt += ft_strlen(str);
-			fmt++;
 		}
 		else
 		{
 			ft_putchar_fd(*fmt, 1);
-			fmt++;
 			cnt++;
 		}
+		fmt++;
 	}
 	va_end(ap);
 	return ((int)cnt);

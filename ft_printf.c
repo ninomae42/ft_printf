@@ -5,6 +5,7 @@ int	ft_printf(const char *fmt, ...)
 {
 	size_t	cnt;
 	va_list	ap;
+	char	*str;
 
 	va_start(ap, fmt);
 	cnt = 0;
@@ -21,6 +22,13 @@ int	ft_printf(const char *fmt, ...)
 		{
 			ft_putchar_fd((unsigned char)va_arg(ap, int), 1);
 			cnt++;
+			fmt++;
+		}
+		else if (*fmt == 's')
+		{
+			str = va_arg(ap, char *);
+			ft_putstr_fd(str, 1);
+			cnt += ft_strlen(str);
 			fmt++;
 		}
 	}

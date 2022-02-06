@@ -26,7 +26,28 @@ static int	is_invalid_base(const char *base)
 		return (0);
 }
 
-void	ft_putnbr_base_cnt(unsigned long long nbr, char *base, size_t *cnt)
+void	ft_putnbr_base_uint_cnt(unsigned long long nbr, char *base, size_t *cnt)
+{
+	size_t				len_base;
+	unsigned long long	n;
+
+	len_base = ft_strlen(base);
+	if (is_invalid_base(base))
+		return ;
+	n = nbr;
+	if (nbr < 0)
+	{
+		ft_putchar_fd('-', 1);
+		*cnt += 1;
+		n = -nbr;
+	}
+	if (n / len_base)
+		ft_putnbr_base_cnt(n / len_base, base, cnt);
+	*cnt += 1;
+	ft_putchar_fd(base[n % len_base], 1);
+}
+
+void	ft_putnbr_base_cnt(long long nbr, char *base, size_t *cnt)
 {
 	size_t				len_base;
 	unsigned long long	n;

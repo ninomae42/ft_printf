@@ -10,16 +10,11 @@ void	case5(void);
 
 int	main(void)
 {
-	int		ret_honke;
-	int		ret_jisaku;
-	char	*addr;
-
 	case1();
 	case2();
 	case3();
 	case4();
 	case5();
-
 	return (0);
 }
 
@@ -34,7 +29,7 @@ void	case1(void)
 	ret_jisaku = ft_printf("hello, world!\n");
 	printf("ret_honke:\t%d\n", ret_honke);
 	printf("ret_jisaku:\t%d\n", ret_jisaku);
-	//assert(ret_honke == ret_jisaku);
+	assert(ret_honke == ret_jisaku);
 	puts("case1 - OK\n");
 }
 
@@ -50,7 +45,7 @@ void	case2(void)
 	ret_jisaku = ft_printf("%c%c%% %s\n", '4', '2', str);
 	printf("ret_honke:\t%d\n", ret_honke);
 	printf("ret_jisaku:\t%d\n", ret_jisaku);
-	//assert(ret_honke == ret_jisaku);
+	assert(ret_honke == ret_jisaku);
 	puts("case2 - OK\n");
 }
 
@@ -67,7 +62,7 @@ void	case3(void)
 		-2147483648, 0, 2147483647, 4294967295, -2147483648, 0, 2147483647, 4294967295);
 	printf("ret_honke:\t%d\n", ret_honke);
 	printf("ret_jisaku:\t%d\n", ret_jisaku);
-	//assert(ret_honke == ret_jisaku);
+	assert(ret_honke == ret_jisaku);
 	puts("case3 - OK\n");
 }
 
@@ -85,7 +80,7 @@ void	case4(void)
 		0, 4294967295, -1, 100, 0, 4294967295, -1, 100);
 	printf("ret_honke:\t%d\n", ret_honke);
 	printf("ret_jisaku:\t%d\n", ret_jisaku);
-	//assert(ret_honke == ret_jisaku);
+	assert(ret_honke == ret_jisaku);
 	puts("case5 - OK\n");
 }
 
@@ -105,6 +100,6 @@ void	case5(void)
 	printf("honke: %d\n", ret_honke);
 	printf("jisaku: %d\n\n", ret_jisaku);
 	free(addr);
-	//assert(ret_honke == ret_jisaku);
+	assert(ret_honke == ret_jisaku);
 	puts("case6 - OK\n");
 }

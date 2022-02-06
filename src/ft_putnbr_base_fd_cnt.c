@@ -26,7 +26,7 @@ static int	is_invalid_base(const char *base)
 		return (0);
 }
 
-void	ft_putnbr_base_cnt(long long nbr, char *base, size_t *cnt)
+void	ft_putnbr_base_cnt(unsigned long long nbr, char *base, size_t *cnt)
 {
 	size_t				len_base;
 	unsigned long long	n;

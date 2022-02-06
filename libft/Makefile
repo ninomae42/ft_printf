@@ -77,7 +77,7 @@ endif
 #OBJS += $(OBJS_BONUS)
 
 .c.o:
-	$(CC) $(CFLAGS) -I$(INCDIR) -c $< -o $(<:.c=.o)
+	$(CC) $(CFLAGS) -I $(INCDIR) -c $< -o $(<:.c=.o)
 
 $(NAME): $(OBJS)
 	$(AR) $(ARFLAGS) $(NAME) $(OBJS)

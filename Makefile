@@ -19,7 +19,7 @@ ARFLAGS := rcs
 RM := rm -f
 
 .c.o:
-	$(CC) $(CFLAGS) -I$(INCDIR) -c $< -o $(<:.c=.o)
+	$(CC) $(CFLAGS) -I $(INCDIR) -I . -c $< -o $(<:.c=.o)
 
 $(NAME): $(OBJS)
 	$(MAKE) -C ./libft

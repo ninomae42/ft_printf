@@ -30,5 +30,14 @@ int	main(void)
 	ret_jisaku = ft_printf("%u\n", 4294967295);
 	printf("honke: %d\n", ret_honke);
 	printf("jisaku: %d\n\n", ret_jisaku);
+
+	puts("%x and %X");
+	ret_honke = 0;
+	ret_jisaku = 0;
+	ret_honke = printf("%x : %X\n", 100, 100);
+	fflush(stdout);
+	ret_jisaku = ft_printf("%x : %X\n", 100, 100);
+	printf("honke: %d\n", ret_honke);
+	printf("jisaku: %d\n\n", ret_jisaku);
 	return (0);
 }

@@ -23,6 +23,10 @@ int	ft_printf(const char *fmt, ...)
 			ft_putnbr_base_cnt(va_arg(ap, int), "0123456789", &cnt);
 		else if (*fmt == 'u')
 			ft_putnbr_base_cnt(va_arg(ap, unsigned int), "0123456789", &cnt);
+		else if (*fmt == 'x')
+			ft_putnbr_base_cnt(va_arg(ap, unsigned int), "0123456789abcdef", &cnt);
+		else if (*fmt == 'X')
+			ft_putnbr_base_cnt(va_arg(ap, unsigned int), "0123456789ABCDEF", &cnt);
 		else
 			ft_putchar_cnt(*fmt, &cnt);
 		fmt++;

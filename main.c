@@ -5,6 +5,7 @@ int	main(void)
 {
 	int		ret_honke;
 	int		ret_jisaku;
+	char	*addr;
 
 	puts("no specifier and %s and %c and %%");
 	ret_honke = printf("hello%c%s%%\n", '/', "42Tokyo");
@@ -39,5 +40,16 @@ int	main(void)
 	ret_jisaku = ft_printf("%x : %X\n", 100, 100);
 	printf("honke: %d\n", ret_honke);
 	printf("jisaku: %d\n\n", ret_jisaku);
+
+	puts("%p");
+	ret_honke = 0;
+	ret_jisaku = 0;
+	addr = ft_strdup("");
+	ret_honke = printf("%p\n", addr);
+	fflush(stdout);
+	ret_jisaku = ft_printf("%p\n", addr);
+	printf("honke: %d\n", ret_honke);
+	printf("jisaku: %d\n\n", ret_jisaku);
+	free(addr);
 	return (0);
 }

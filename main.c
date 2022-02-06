@@ -6,18 +6,29 @@ int	main(void)
 	int		ret_honke;
 	int		ret_jisaku;
 
+	puts("no specifier and %s and %c and %%");
 	ret_honke = printf("hello%c%s%%\n", '/', "42Tokyo");
 	fflush(stdout);
 	ret_jisaku = ft_printf("hello%c%s%%\n", '/', "42Tokyo");
 	printf("honke: %d\n", ret_honke);
-	printf("jisaku: %d\n", ret_jisaku);
+	printf("jisaku: %d\n\n", ret_jisaku);
 
+	puts("%d and %i");
 	ret_honke = 0;
 	ret_jisaku = 0;
 	ret_honke = printf("%d, %i\n", 2147483647, -2147483648);
 	fflush(stdout);
 	ret_jisaku = ft_printf("%d, %i\n", 2147483647, -2147483648);
 	printf("honke: %d\n", ret_honke);
-	printf("jisaku: %d\n", ret_jisaku);
+	printf("jisaku: %d\n\n", ret_jisaku);
+
+	puts("%u");
+	ret_honke = 0;
+	ret_jisaku = 0;
+	ret_honke = printf("%u\n", 4294967295);
+	fflush(stdout);
+	ret_jisaku = ft_printf("%u\n", 4294967295);
+	printf("honke: %d\n", ret_honke);
+	printf("jisaku: %d\n\n", ret_jisaku);
 	return (0);
 }

@@ -5,7 +5,6 @@ int	ft_printf(const char *fmt, ...)
 {
 	size_t	cnt;
 	va_list	ap;
-	char	*str;
 
 	va_start(ap, fmt);
 	cnt = 0;
@@ -22,6 +21,8 @@ int	ft_printf(const char *fmt, ...)
 			ft_putstr_fd_cnt(va_arg(ap, char *), 1, &cnt);
 		else if (*fmt == 'd' || *fmt == 'i')
 			ft_putnbr_base_fd_cnt(va_arg(ap, int), "0123456789", 1, &cnt);
+		else if (*fmt == 'u')
+			ft_putnbr_base_fd_cnt(va_arg(ap, unsigned int), "0123456789", 1, &cnt);
 		else
 			ft_putchar_fd_cnt(*fmt, 1, &cnt);
 		fmt++;

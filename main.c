@@ -7,6 +7,7 @@ void	case2(void);
 void	case3(void);
 void	case4(void);
 void	case5(void);
+void	case6(void);
 
 int	main(void)
 {
@@ -15,6 +16,7 @@ int	main(void)
 	case3();
 	case4();
 	case5();
+	case6();
 	return (0);
 }
 
@@ -49,8 +51,7 @@ void	case2(void)
 	puts("case2 - OK\n");
 }
 
-void	case3(void)
-{
+void	case3(void) {
 	int		ret_honke;
 	int		ret_jisaku;
 
@@ -90,13 +91,33 @@ void	case5(void)
 	int		ret_jisaku;
 	char	*addr;
 
-	puts("Case 6 -- %u");
+	puts("Case 5 -- %p");
 	ret_honke = 0;
 	ret_jisaku = 0;
 	addr = ft_strdup("");
 	ret_honke = printf("%p, %p\n", addr, NULL);
 	fflush(stdout);
 	ret_jisaku = ft_printf("%p, %p\n", addr, NULL);
+	printf("honke: %d\n", ret_honke);
+	printf("jisaku: %d\n\n", ret_jisaku);
+	free(addr);
+	assert(ret_honke == ret_jisaku);
+	puts("case5 - OK\n");
+}
+
+void	case6(void)
+{
+	int		ret_honke;
+	int		ret_jisaku;
+	char	*addr;
+
+	puts("Case 6 -- %s (NULL pointer)");
+	ret_honke = 0;
+	ret_jisaku = 0;
+	addr = ft_strdup("text");
+	ret_honke = printf("%s, %s\n", addr, NULL);
+	fflush(stdout);
+	ret_jisaku = ft_printf("%s, %s\n", addr, NULL);
 	printf("honke: %d\n", ret_honke);
 	printf("jisaku: %d\n\n", ret_jisaku);
 	free(addr);

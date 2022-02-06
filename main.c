@@ -73,7 +73,7 @@ void	case4(void)
 	int		ret_honke;
 	int		ret_jisaku;
 
-	puts("Case 5 -- %x and %X");
+	puts("Case 4 -- %x and %X");
 	ret_honke = printf("%x %x %x %x : %X %X %X %X\n",
 		0, 4294967295, -1, 100, 0, 4294967295, -1, 100);
 	fflush(stdout);
@@ -82,7 +82,7 @@ void	case4(void)
 	printf("ret_honke:\t%d\n", ret_honke);
 	printf("ret_jisaku:\t%d\n", ret_jisaku);
 	assert(ret_honke == ret_jisaku);
-	puts("case5 - OK\n");
+	puts("case4 - OK\n");
 }
 
 void	case5(void)

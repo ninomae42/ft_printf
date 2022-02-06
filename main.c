@@ -1,4 +1,6 @@
 #include <assert.h>
+#include <limits.h>
+#include <stdint.h>
 #include <stdio.h>
 #include "ft_printf.h"
 
@@ -51,16 +53,17 @@ void	case2(void)
 	puts("case2 - OK\n");
 }
 
-void	case3(void) {
+void	case3(void)
+{
 	int		ret_honke;
 	int		ret_jisaku;
 
 	puts("Case 3 -- %d and %i");
-	ret_honke = printf("%d %d %d %d : %i %i %i \n",
-		-2147483648, 0, 2147483647, 4294967295, -2147483648, 0, 2147483647, 4294967295);
+	ret_honke = printf("%d %d %d %d : %i %i %i %i\n",
+			INT_MIN, 0, INT_MAX, UINT_MAX, INT_MIN, 0, INT_MAX, UINT_MAX);
 	fflush(stdout);
-	ret_jisaku = ft_printf("%d %d %d %d : %i %i %i \n",
-		-2147483648, 0, 2147483647, 4294967295, -2147483648, 0, 2147483647, 4294967295);
+	ret_jisaku = ft_printf("%d %d %d %d : %i %i %i %i\n",
+			INT_MIN, 0, INT_MAX, UINT_MAX, INT_MIN, 0, INT_MAX, UINT_MAX);
 	printf("ret_honke:\t%d\n", ret_honke);
 	printf("ret_jisaku:\t%d\n", ret_jisaku);
 	assert(ret_honke == ret_jisaku);
@@ -75,10 +78,10 @@ void	case4(void)
 
 	puts("Case 4 -- %x and %X");
 	ret_honke = printf("%x %x %x %x : %X %X %X %X\n",
-		0, 4294967295, -1, 100, 0, 4294967295, -1, 100);
+			0, UINT_MAX, -1, 100, 0, UINT_MAX, -1, 100);
 	fflush(stdout);
 	ret_jisaku = ft_printf("%x %x %x %x : %X %X %X %X\n",
-		0, 4294967295, -1, 100, 0, 4294967295, -1, 100);
+			0, UINT_MAX, -1, 100, 0, UINT_MAX, -1, 100);
 	printf("ret_honke:\t%d\n", ret_honke);
 	printf("ret_jisaku:\t%d\n", ret_jisaku);
 	assert(ret_honke == ret_jisaku);
@@ -115,9 +118,9 @@ void	case6(void)
 	ret_honke = 0;
 	ret_jisaku = 0;
 	addr = ft_strdup("text");
-	ret_honke = printf("%s, %s\n", addr, NULL);
+	ret_honke = printf("%s, %s\n", addr, (char *) NULL);
 	fflush(stdout);
-	ret_jisaku = ft_printf("%s, %s\n", addr, NULL);
+	ret_jisaku = ft_printf("%s, %s\n", addr, (char *) NULL);
 	printf("honke: %d\n", ret_honke);
 	printf("jisaku: %d\n\n", ret_jisaku);
 	free(addr);

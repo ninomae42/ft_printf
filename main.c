@@ -1,5 +1,12 @@
+#include <assert.h>
 #include <stdio.h>
 #include "ft_printf.h"
+
+void	case1(void);
+void	case2(void);
+void	case3(void);
+void	case4(void);
+void	case5(void);
 
 int	main(void)
 {
@@ -7,49 +14,97 @@ int	main(void)
 	int		ret_jisaku;
 	char	*addr;
 
-	puts("no specifier and %s and %c and %%");
-	ret_honke = printf("hello%c%s%%\n", '/', "42Tokyo");
-	fflush(stdout);
-	ret_jisaku = ft_printf("hello%c%s%%\n", '/', "42Tokyo");
-	printf("honke: %d\n", ret_honke);
-	printf("jisaku: %d\n\n", ret_jisaku);
+	case1();
+	case2();
+	case3();
+	case4();
+	case5();
 
-	puts("%d and %i");
-	ret_honke = 0;
-	ret_jisaku = 0;
-	ret_honke = printf("%d, %i\n", 2147483647, -2147483648);
-	fflush(stdout);
-	ret_jisaku = ft_printf("%d, %i\n", 2147483647, -2147483648);
-	printf("honke: %d\n", ret_honke);
-	printf("jisaku: %d\n\n", ret_jisaku);
+	return (0);
+}
 
-	puts("%u");
-	ret_honke = 0;
-	ret_jisaku = 0;
-	ret_honke = printf("%u\n", 4294967295);
-	fflush(stdout);
-	ret_jisaku = ft_printf("%u\n", 4294967295);
-	printf("honke: %d\n", ret_honke);
-	printf("jisaku: %d\n\n", ret_jisaku);
+void	case1(void)
+{
+	int	ret_honke;
+	int	ret_jisaku;
 
-	puts("%x and %X");
-	ret_honke = 0;
-	ret_jisaku = 0;
-	ret_honke = printf("%x : %X\n", 100, 100);
+	puts("Case 1 -- no specifier");
+	ret_honke = printf("hello, world!\n");
 	fflush(stdout);
-	ret_jisaku = ft_printf("%x : %X\n", 100, 100);
-	printf("honke: %d\n", ret_honke);
-	printf("jisaku: %d\n\n", ret_jisaku);
+	ret_jisaku = ft_printf("hello, world!\n");
+	printf("ret_honke:\t%d\n", ret_honke);
+	printf("ret_jisaku:\t%d\n", ret_jisaku);
+	//assert(ret_honke == ret_jisaku);
+	puts("case1 - OK\n");
+}
 
-	puts("%p");
+void	case2(void)
+{
+	int		ret_honke;
+	int		ret_jisaku;
+	char	str[] = "hello, world!\n";
+
+	puts("Case 2 -- %c and %s and %%");
+	ret_honke = printf("%c%c%% %s\n", '4', '2', str);
+	fflush(stdout);
+	ret_jisaku = ft_printf("%c%c%% %s\n", '4', '2', str);
+	printf("ret_honke:\t%d\n", ret_honke);
+	printf("ret_jisaku:\t%d\n", ret_jisaku);
+	//assert(ret_honke == ret_jisaku);
+	puts("case2 - OK\n");
+}
+
+void	case3(void)
+{
+	int		ret_honke;
+	int		ret_jisaku;
+
+	puts("Case 3 -- %d and %i");
+	ret_honke = printf("%d %d %d %d : %i %i %i \n",
+		-2147483648, 0, 2147483647, 4294967295, -2147483648, 0, 2147483647, 4294967295);
+	fflush(stdout);
+	ret_jisaku = ft_printf("%d %d %d %d : %i %i %i \n",
+		-2147483648, 0, 2147483647, 4294967295, -2147483648, 0, 2147483647, 4294967295);
+	printf("ret_honke:\t%d\n", ret_honke);
+	printf("ret_jisaku:\t%d\n", ret_jisaku);
+	//assert(ret_honke == ret_jisaku);
+	puts("case3 - OK\n");
+}
+
+
+void	case4(void)
+{
+	int		ret_honke;
+	int		ret_jisaku;
+
+	puts("Case 5 -- %x and %X");
+	ret_honke = printf("%x %x %x %x : %X %X %X %X\n",
+		0, 4294967295, -1, 100, 0, 4294967295, -1, 100);
+	fflush(stdout);
+	ret_jisaku = ft_printf("%x %x %x %x : %X %X %X %X\n",
+		0, 4294967295, -1, 100, 0, 4294967295, -1, 100);
+	printf("ret_honke:\t%d\n", ret_honke);
+	printf("ret_jisaku:\t%d\n", ret_jisaku);
+	//assert(ret_honke == ret_jisaku);
+	puts("case5 - OK\n");
+}
+
+void	case5(void)
+{
+	int		ret_honke;
+	int		ret_jisaku;
+	char	*addr;
+
+	puts("Case 6 -- %u");
 	ret_honke = 0;
 	ret_jisaku = 0;
 	addr = ft_strdup("");
-	ret_honke = printf("%p\n", addr);
+	ret_honke = printf("%p, %p\n", addr, NULL);
 	fflush(stdout);
-	ret_jisaku = ft_printf("%p\n", addr);
+	ret_jisaku = ft_printf("%p, %p\n", addr, NULL);
 	printf("honke: %d\n", ret_honke);
 	printf("jisaku: %d\n\n", ret_jisaku);
 	free(addr);
-	return (0);
+	//assert(ret_honke == ret_jisaku);
+	puts("case6 - OK\n");
 }

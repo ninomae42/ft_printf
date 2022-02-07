@@ -3,7 +3,8 @@ SRCDIR := ./src/
 SRCS := ft_putchar_fd_cnt.c \
 		ft_putfmt.c \
 		ft_putnbr_base_fd_cnt.c \
-		ft_putstr_fd_cnt.c
+		ft_putstr_fd_cnt.c \
+		is_linelong.c
 
 SRCS := $(addprefix $(SRCDIR), $(SRCS))
 SRCS += ./ft_printf.c

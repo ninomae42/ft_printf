@@ -70,7 +70,6 @@ void	case3(void)
 	puts("case3 - OK\n");
 }
 
-
 void	case4(void)
 {
 	int		ret_honke;

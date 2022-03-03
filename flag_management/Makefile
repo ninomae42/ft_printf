@@ -1,7 +1,8 @@
 NAME := ft_printf.a
 SRCS := printf.c \
 		parser.c \
-		parser_util.c
+		parser_util.c \
+		itoa.c
 
 OBJS := $(SRCS:.c=.o)
 

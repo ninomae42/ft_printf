@@ -7,6 +7,7 @@
 # include <stdlib.h>
 # include <stdbool.h>
 # include <string.h>
+# include <unistd.h>
 # define ERROR -1
 
 typedef struct s_finfo {
@@ -32,5 +33,9 @@ t_finfo	*new_flag(void);
 void	print_flag_info(t_finfo *info);
 bool	is_conv_specifier(const char c);
 bool	is_flag(const char c);
+
+/* itoa.c */
+char	*ft_itoa(int n);
+size_t	count_digit(int n);
 
 #endif

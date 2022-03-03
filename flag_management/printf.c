@@ -24,19 +24,6 @@ char	get_sign_char(t_finfo *info, int nbr)
 		return ('\0');
 }
 
-void	ft_putchar(const char c)
-{
-	write(1, &c, 1);
-}
-
-void	ft_putstr(const char *s)
-{
-	if (s != NULL)
-		write(1, s, strlen(s));
-	else
-		ft_putstr(NULL_STR);
-}
-
 void	put_c(char c, t_finfo **info)
 {
 	ft_putchar(c);
@@ -64,7 +51,7 @@ void	put_di(int nbr, t_finfo **info)
 		if (sign_char != '\0')
 			write(1, &sign_char, 1);
 	}
-	write(1, s_nbr, strlen(s_nbr));
+	ft_putstr(s_nbr);
 	free(s_nbr);
 }
 
@@ -78,7 +65,7 @@ void	put_u(unsigned int nbr, t_finfo **info)
 		(*info)->is_error = true;
 		return ;
 	}
-	write(1, s_nbr, strlen(s_nbr));
+	ft_putstr(s_nbr);
 	free(s_nbr);
 }
 
@@ -95,7 +82,7 @@ void	put_xs(unsigned int nbr, t_finfo **info)
 		(*info)->is_error = true;
 		return ;
 	}
-	write(1, s_nbr, strlen(s_nbr));
+	ft_putstr(s_nbr);
 	free(s_nbr);
 }
 
@@ -109,8 +96,8 @@ void	put_p(unsigned long long int nbr, t_finfo **info)
 		(*info)->is_error = true;
 		return ;
 	}
-	write(1, "0x", 2);
-	write(1, s_nbr, strlen(s_nbr));
+	ft_putstr("0x");
+	ft_putstr(s_nbr);
 	free(s_nbr);
 }
 

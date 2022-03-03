@@ -46,4 +46,9 @@ size_t	count_digit(int n);
 size_t	count_digit_ulonglong_base(unsigned long long int n, char *base);
 char	*ulonglong_toa_base(unsigned long long int nbr, char *base);
 
+/* strutils.c */
+void	ft_putchar(const char c);
+void	ft_putstr(const char *s);
+size_t	ft_strlen(const char *s);
+
 #endif

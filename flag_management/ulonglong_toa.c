@@ -6,7 +6,7 @@ size_t	count_digit_ulonglong_base(unsigned long long int n, char *base)
 	size_t	base_len;
 
 	cnt = 0;
-	base_len = strlen(base);
+	base_len = ft_strlen(base);
 	if (n == 0)
 		cnt = 1;
 	while (n != 0)
@@ -22,7 +22,7 @@ static void	set_ulonglong_nbr(
 {
 	size_t	len_base;
 
-	len_base = strlen(base);
+	len_base = ft_strlen(base);
 	s[cnt] = base[nbr % len_base];
 	if (nbr / len_base)
 		set_ulonglong_nbr(nbr / len_base, s, --cnt, base);

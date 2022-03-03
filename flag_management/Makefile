@@ -2,7 +2,8 @@ NAME := ft_printf.a
 SRCS := printf.c \
 		parser.c \
 		parser_util.c \
-		itoa.c
+		itoa.c \
+		ulonglong_toa.c
 
 OBJS := $(SRCS:.c=.o)
 

@@ -9,6 +9,10 @@
 # include <string.h>
 # include <unistd.h>
 # define ERROR -1
+# define NULL_STR "(null)"
+# define BASE_10 "0123456789"
+# define BASE_16L "0123456789abcdef"
+# define BASE_16U "0123456789ABCDEF"
 
 typedef struct s_finfo {
 	bool	alter_flag;
@@ -37,5 +41,9 @@ bool	is_flag(const char c);
 /* itoa.c */
 char	*ft_itoa(int n);
 size_t	count_digit(int n);
+
+/* ulonglong_toa.c */
+size_t	count_digit_ulonglong_base(unsigned long long int n, char *base);
+char	*ulonglong_toa_base(unsigned long long int nbr, char *base);
 
 #endif

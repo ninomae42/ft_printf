@@ -24,8 +24,28 @@ char	get_sign_char(t_finfo *info, int nbr)
 		return ('\0');
 }
 
-	/* printf("%4.3d\n", 10); */
-	/* ft_printf("%4.3d\n", 10); */
+void	ft_putchar(const char c)
+{
+	write(1, &c, 1);
+}
+
+void	ft_putstr(const char *s)
+{
+	if (s != NULL)
+		write(1, s, strlen(s));
+	else
+		ft_putstr(NULL_STR);
+}
+
+void	put_c(char c, t_finfo **info)
+{
+	ft_putchar(c);
+}
+
+void	put_s(char *s, t_finfo **info)
+{
+	ft_putstr(s);
+}
 
 void	put_di(int nbr, t_finfo **info)
 {
@@ -45,6 +65,53 @@ void	put_di(int nbr, t_finfo **info)
 			write(1, &sign_char, 1);
 	}
 	write(1, s_nbr, strlen(s_nbr));
+	free(s_nbr);
+}
+
+void	put_u(unsigned int nbr, t_finfo **info)
+{
+	char	*s_nbr;
+
+	s_nbr = ulonglong_toa_base(nbr, BASE_10);
+	if (s_nbr == NULL)
+	{
+		(*info)->is_error = true;
+		return ;
+	}
+	write(1, s_nbr, strlen(s_nbr));
+	free(s_nbr);
+}
+
+void	put_xs(unsigned int nbr, t_finfo **info)
+{
+	char	*s_nbr;
+
+	if ((*info)->conv_specifier == 'x')
+		s_nbr = ulonglong_toa_base(nbr, BASE_16L);
+	else
+		s_nbr = ulonglong_toa_base(nbr, BASE_16U);
+	if (s_nbr == NULL)
+	{
+		(*info)->is_error = true;
+		return ;
+	}
+	write(1, s_nbr, strlen(s_nbr));
+	free(s_nbr);
+}
+
+void	put_p(unsigned long long int nbr, t_finfo **info)
+{
+	char	*s_nbr;
+
+	s_nbr = ulonglong_toa_base(nbr, BASE_16L);
+	if (s_nbr == NULL)
+	{
+		(*info)->is_error = true;
+		return ;
+	}
+	write(1, "0x", 2);
+	write(1, s_nbr, strlen(s_nbr));
+	free(s_nbr);
 }
 
 int	do_printf(const char **fmt, va_list *ap)
@@ -60,11 +127,20 @@ int	do_printf(const char **fmt, va_list *ap)
 			parse_flag(fmt, &finfo, ap);
 			if (finfo == NULL)
 				return (ERROR);
-			/* print_flag_info(finfo); */
-			/* if (finfo->conv_specifier == 'c') */
-			/* 	ft_putchar_padding((unsigned char)va_arg(*ap, int), finfo); */
-			if (finfo->conv_specifier == 'd' || finfo->conv_specifier == 'i')
+			if (finfo->conv_specifier == 'c' || finfo->conv_specifier == '%')
+				put_c((unsigned char)va_arg(*ap, int), &finfo);
+			else if (finfo->conv_specifier == 's')
+				put_s(va_arg(*ap, char *), &finfo);
+			else if (finfo->conv_specifier == 'd'
+				|| finfo->conv_specifier == 'i')
 				put_di(va_arg(*ap, int), &finfo);
+			else if (finfo->conv_specifier == 'u')
+				put_u(va_arg(*ap, unsigned int), &finfo);
+			else if (finfo->conv_specifier == 'x'
+				|| finfo->conv_specifier == 'X')
+				put_xs(va_arg(*ap, unsigned int), &finfo);
+			else if (finfo->conv_specifier == 'p')
+				put_p(va_arg(*ap, unsigned long long int), &finfo);
 			if (finfo->is_error)
 			{
 				free(finfo);
@@ -73,7 +149,7 @@ int	do_printf(const char **fmt, va_list *ap)
 			free(finfo);
 		}
 		else
-			putchar(*(*fmt)++);
+			ft_putchar(*(*fmt)++);
 	}
 	return (ret);
 }
@@ -96,8 +172,19 @@ int	main(void)
 {
 	int	ret;
 
-	printf("%4.3d\n", 10);
-	ft_printf("%4.3d\n", 10);
+	printf("%s\n", NULL);
+	ft_printf("%s\n", NULL);
+
+	/* printf("%chogehoge%c\n", '4', '2'); */
+	/* ft_printf("%chogehoge%c\n", '4', '2'); */
+
+	/* printf("%p\n", NULL); */
+	/* ft_printf("%p\n", NULL); */
+	/* printf("%X\n", UINT_MAX); */
+	/* ft_printf("%X\n", UINT_MAX); */
+
+	/* printf("%u\n", -2); */
+	/* ft_printf("%u\n", -2); */
 
 //	printf("%+d\n", 2147483647);
 //	printf("%+d\n", -2147483648);

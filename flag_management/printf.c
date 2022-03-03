@@ -101,6 +101,24 @@ void	put_p(unsigned long long int nbr, t_finfo **info)
 	free(s_nbr);
 }
 
+void	put_fmt(t_finfo **info, va_list *ap)
+{
+	if ((*info)->conv_specifier == 'c' || (*info)->conv_specifier == '%')
+		put_c((unsigned char)va_arg(*ap, int), info);
+	else if ((*info)->conv_specifier == 's')
+		put_s(va_arg(*ap, char *), info);
+	else if ((*info)->conv_specifier == 'd'
+		|| (*info)->conv_specifier == 'i')
+		put_di(va_arg(*ap, int), info);
+	else if ((*info)->conv_specifier == 'u')
+		put_u(va_arg(*ap, unsigned int), info);
+	else if ((*info)->conv_specifier == 'x'
+		|| (*info)->conv_specifier == 'X')
+		put_xs(va_arg(*ap, unsigned int), info);
+	else if ((*info)->conv_specifier == 'p')
+		put_p(va_arg(*ap, unsigned long long int), info);
+}
+
 int	do_printf(const char **fmt, va_list *ap)
 {
 	int		ret;
@@ -114,20 +132,7 @@ int	do_printf(const char **fmt, va_list *ap)
 			parse_flag(fmt, &finfo, ap);
 			if (finfo == NULL)
 				return (ERROR);
-			if (finfo->conv_specifier == 'c' || finfo->conv_specifier == '%')
-				put_c((unsigned char)va_arg(*ap, int), &finfo);
-			else if (finfo->conv_specifier == 's')
-				put_s(va_arg(*ap, char *), &finfo);
-			else if (finfo->conv_specifier == 'd'
-				|| finfo->conv_specifier == 'i')
-				put_di(va_arg(*ap, int), &finfo);
-			else if (finfo->conv_specifier == 'u')
-				put_u(va_arg(*ap, unsigned int), &finfo);
-			else if (finfo->conv_specifier == 'x'
-				|| finfo->conv_specifier == 'X')
-				put_xs(va_arg(*ap, unsigned int), &finfo);
-			else if (finfo->conv_specifier == 'p')
-				put_p(va_arg(*ap, unsigned long long int), &finfo);
+			put_fmt(&finfo, ap);
 			if (finfo->is_error)
 			{
 				free(finfo);
@@ -159,11 +164,11 @@ int	main(void)
 {
 	int	ret;
 
-	printf("%s\n", NULL);
-	ft_printf("%s\n", NULL);
+	/* printf("%s\n", NULL); */
+	/* ft_printf("%s\n", NULL); */
 
-	/* printf("%chogehoge%c\n", '4', '2'); */
-	/* ft_printf("%chogehoge%c\n", '4', '2'); */
+	printf("%chogehoge%c\n", '4', '2');
+	ft_printf("%chogehoge%c\n", '4', '2');
 
 	/* printf("%p\n", NULL); */
 	/* ft_printf("%p\n", NULL); */

@@ -3,7 +3,8 @@ SRCS := printf.c \
 		parser.c \
 		parser_util.c \
 		itoa.c \
-		ulonglong_toa.c
+		ulonglong_toa.c \
+		strutils.c \
 
 OBJS := $(SRCS:.c=.o)
 

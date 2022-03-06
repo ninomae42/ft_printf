@@ -69,19 +69,34 @@ void	put_u(unsigned int nbr, t_finfo **info)
 	free(s_nbr);
 }
 
-void	put_xs(unsigned int nbr, t_finfo **info)
+void	put_x_lower(unsigned int nbr, t_finfo **info)
 {
 	char	*s_nbr;
 
-	if ((*info)->conv_specifier == 'x')
-		s_nbr = ulonglong_toa_base(nbr, BASE_16L);
-	else
-		s_nbr = ulonglong_toa_base(nbr, BASE_16U);
+	s_nbr = ulonglong_toa_base(nbr, BASE_16L);
 	if (s_nbr == NULL)
 	{
 		(*info)->is_error = true;
 		return ;
 	}
+	if ((*info)->alter_flag && nbr != 0)
+		ft_putstr("0x");
+	ft_putstr(s_nbr);
+	free(s_nbr);
+}
+
+void	put_x_upper(unsigned int nbr, t_finfo **info)
+{
+	char	*s_nbr;
+
+	s_nbr = ulonglong_toa_base(nbr, BASE_16U);
+	if (s_nbr == NULL)
+	{
+		(*info)->is_error = true;
+		return ;
+	}
+	if ((*info)->alter_flag && nbr != 0)
+		ft_putstr("0X");
 	ft_putstr(s_nbr);
 	free(s_nbr);
 }
@@ -112,9 +127,10 @@ void	put_fmt(t_finfo **info, va_list *ap)
 		put_di(va_arg(*ap, int), info);
 	else if ((*info)->conv_specifier == 'u')
 		put_u(va_arg(*ap, unsigned int), info);
-	else if ((*info)->conv_specifier == 'x'
-		|| (*info)->conv_specifier == 'X')
-		put_xs(va_arg(*ap, unsigned int), info);
+	else if ((*info)->conv_specifier == 'x')
+		put_x_lower(va_arg(*ap, unsigned int), info);
+	else if ((*info)->conv_specifier == 'X')
+		put_x_upper(va_arg(*ap, unsigned int), info);
 	else if ((*info)->conv_specifier == 'p')
 		put_p(va_arg(*ap, unsigned long long int), info);
 }
@@ -164,11 +180,25 @@ int	main(void)
 {
 	int	ret;
 
+	/* x with alter_flag */
+	//printf("%#x\n", 0);
+	//ft_printf("%#x\n", 0);
+
+	//printf("%#x\n", 1);
+	//ft_printf("%#x\n", 1);
+
+	//printf("%#X\n", 0);
+	//ft_printf("%#X\n", 0);
+
+	//printf("%#X\n", 1);
+	//ft_printf("%#X\n", 1);
+	////////////////////////
+
 	/* printf("%s\n", NULL); */
 	/* ft_printf("%s\n", NULL); */
 
-	printf("%chogehoge%c\n", '4', '2');
-	ft_printf("%chogehoge%c\n", '4', '2');
+	/* printf("%chogehoge%c\n", '4', '2'); */
+	/* ft_printf("%chogehoge%c\n", '4', '2'); */
 
 	/* printf("%p\n", NULL); */
 	/* ft_printf("%p\n", NULL); */

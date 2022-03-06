@@ -50,5 +50,6 @@ char	*ulonglong_toa_base(unsigned long long int nbr, char *base);
 void	ft_putchar(const char c);
 void	ft_putstr(const char *s);
 size_t	ft_strlen(const char *s);
+void	ft_putstr_len(const char *s, size_t max_len);
 
 #endif

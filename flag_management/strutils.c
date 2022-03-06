@@ -23,3 +23,18 @@ void	ft_putstr(const char *s)
 	else
 		ft_putstr(NULL_STR);
 }
+
+void	ft_putstr_len(const char *s, size_t max_len)
+{
+	size_t	len;
+
+	if (s != NULL)
+	{
+		len = ft_strlen(s);
+		if (len > max_len)
+			len = max_len;
+		write(1, s, len);
+	}
+	else
+		ft_putstr_len(NULL_STR, max_len);
+}

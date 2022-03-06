@@ -79,9 +79,36 @@ void	put_c(char c, t_finfo **info)
 	}
 }
 
+size_t	get_print_len(char *s, t_finfo *info)
+{
+	size_t	print_len;
+
+	if (s == NULL)
+		print_len = ft_strlen(NULL_STR);
+	else
+		print_len = ft_strlen(s);
+	if (info->precision >= 0 && print_len > info->precision)
+		print_len = info->precision;
+	return (print_len);
+}
+
 void	put_s(char *s, t_finfo **info)
 {
-	ft_putstr(s);
+	size_t	pad_len;
+	size_t	print_len;
+
+	print_len = get_print_len(s, *info);
+	pad_len = get_padding_len(print_len, *info);
+	if ((*info)->minus_flag)
+	{
+		ft_putstr_len(s, print_len);
+		put_padding(pad_len, *info);
+	}
+	else
+	{
+		put_padding(pad_len, *info);
+		ft_putstr_len(s, print_len);
+	}
 }
 
 void	put_di(int nbr, t_finfo **info)
@@ -232,9 +259,13 @@ int	main(void)
 {
 	int	ret;
 
+	/* c with min_field_width, precision, and zero/minus flag. */
+	printf("[%*.3s][%-04.*s]\n", -4, NULL, 3, "hogehoge");
+	ft_printf("[%*.3s][%-04.*s]\n", -4, NULL, 3, "hogehoge");
+
 	/* handle non-conversion char appear between % and conversion specifier */
-	printf("%-4b 2d\n", 10);
-	ft_printf("%-4b 2d\n", 10);
+	//printf("%-4b 2d\n", 10);
+	//ft_printf("%-4b 2d\n", 10);
 
 	/* c with min_field_width and zero/minus flag */
 	//printf("hoge[%-04c]\n", 'A');

@@ -119,17 +119,17 @@ void	put_fmt(t_finfo **info, va_list *ap)
 		put_p(va_arg(*ap, unsigned long long int), info);
 }
 
-int	do_printf(const char **fmt, va_list *ap)
+int	do_printf(const char *fmt, va_list *ap)
 {
 	int		ret;
 	t_finfo	*finfo;
 
 	ret = 0;
-	while (**fmt != '\0')
+	while (*fmt != '\0')
 	{
-		if (**fmt == '%')
+		if (*fmt == '%')
 		{
-			parse_flag(fmt, &finfo, ap);
+			parse_flag(&fmt, &finfo, ap);
 			if (finfo == NULL)
 				return (ERROR);
 			put_fmt(&finfo, ap);
@@ -141,7 +141,7 @@ int	do_printf(const char **fmt, va_list *ap)
 			free(finfo);
 		}
 		else
-			ft_putchar(*(*fmt)++);
+			ft_putchar(*fmt++);
 	}
 	return (ret);
 }
@@ -155,7 +155,7 @@ int	ft_printf(const char *fmt, ...)
 	if (fmt == NULL)
 		return (ERROR);
 	va_start(ap, fmt);
-	ret = do_printf(&fmt, &ap);
+	ret = do_printf(fmt, &ap);
 	va_end(ap);
 	return (ret);
 }

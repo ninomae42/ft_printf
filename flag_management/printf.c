@@ -132,12 +132,12 @@ int	do_printf(const char *fmt, va_list *ap)
 			parse_flag(&fmt, &finfo, ap);
 			if (finfo == NULL)
 				return (ERROR);
-			put_fmt(&finfo, ap);
 			if (finfo->is_error)
 			{
 				free(finfo);
 				return (ERROR);
 			}
+			put_fmt(&finfo, ap);
 			free(finfo);
 		}
 		else
@@ -148,7 +148,7 @@ int	do_printf(const char *fmt, va_list *ap)
 
 int	ft_printf(const char *fmt, ...)
 {
-	size_t	ret;
+	int		ret;
 	va_list	ap;
 
 	ret = 0;

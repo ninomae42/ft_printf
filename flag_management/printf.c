@@ -24,9 +24,59 @@ char	get_sign_char(t_finfo *info, int nbr)
 		return ('\0');
 }
 
+bool	is_numeric_conversion(t_finfo *info)
+{
+	char	conv_specifier;
+
+	conv_specifier = info->conv_specifier;
+	if (strchr("diuxX", conv_specifier) != NULL)
+		return (true);
+	return (false);
+}
+
+char	get_padding_char(t_finfo *info)
+{
+	char	padding_char;
+
+	padding_char = ' ';
+	if (info->zero_flag && !is_numeric_conversion(info))
+		padding_char = '0';
+	return (padding_char);
+}
+
+size_t	get_padding_len(size_t len, t_finfo *info)
+{
+	size_t	padding_len;
+	size_t	min_field_width;
+
+	padding_len = 0;
+	min_field_width = info->min_field_width;
+	if (min_field_width >= 0 && min_field_width > len)
+		padding_len = min_field_width - len;
+	return (padding_len);
+}
+
+void	put_padding(size_t padding_len, t_finfo *info)
+{
+	while (padding_len--)
+		ft_putchar(get_padding_char(info));
+}
+
 void	put_c(char c, t_finfo **info)
 {
-	ft_putchar(c);
+	size_t	pad_len;
+
+	pad_len = get_padding_len(1, *info);
+	if ((*info)->minus_flag)
+	{
+		ft_putchar(c);
+		put_padding(pad_len, *info);
+	}
+	else
+	{
+		put_padding(pad_len, *info);
+		ft_putchar(c);
+	}
 }
 
 void	put_s(char *s, t_finfo **info)
@@ -179,6 +229,9 @@ int	ft_printf(const char *fmt, ...)
 int	main(void)
 {
 	int	ret;
+
+	printf("hoge[%-04c]\n", 'A');
+	ft_printf("hoge[%-04c]\n", 'A');
 
 	/* x with alter_flag */
 	//printf("%#x\n", 0);

@@ -166,7 +166,7 @@ void	put_p(unsigned long long int nbr, t_finfo **info)
 	free(s_nbr);
 }
 
-void	put_fmt(t_finfo **info, va_list *ap)
+void	put_fmt(t_finfo **info, va_list *ap, const char **fmt)
 {
 	if ((*info)->conv_specifier == 'c' || (*info)->conv_specifier == '%')
 		put_c((unsigned char)va_arg(*ap, int), info);
@@ -183,6 +183,8 @@ void	put_fmt(t_finfo **info, va_list *ap)
 		put_x_upper(va_arg(*ap, unsigned int), info);
 	else if ((*info)->conv_specifier == 'p')
 		put_p(va_arg(*ap, unsigned long long int), info);
+	else
+		put_c(*(*fmt)++, info);
 }
 
 int	do_printf(const char *fmt, va_list *ap)
@@ -203,7 +205,7 @@ int	do_printf(const char *fmt, va_list *ap)
 				free(finfo);
 				return (ERROR);
 			}
-			put_fmt(&finfo, ap);
+			put_fmt(&finfo, ap, &fmt);
 			free(finfo);
 		}
 		else
@@ -230,8 +232,13 @@ int	main(void)
 {
 	int	ret;
 
-	printf("hoge[%-04c]\n", 'A');
-	ft_printf("hoge[%-04c]\n", 'A');
+	/* handle non-conversion char appear between % and conversion specifier */
+	printf("%-4b 2d\n", 10);
+	ft_printf("%-4b 2d\n", 10);
+
+	/* c with min_field_width and zero/minus flag */
+	//printf("hoge[%-04c]\n", 'A');
+	//ft_printf("hoge[%-04c]\n", 'A');
 
 	/* x with alter_flag */
 	//printf("%#x\n", 0);

@@ -24,42 +24,6 @@ char	get_sign_char(t_finfo *info, int nbr)
 		return ('\0');
 }
 
-bool	is_numeric_conversion(t_finfo *info)
-{
-	char	conv_specifier;
-
-	conv_specifier = info->conv_specifier;
-	if (strchr("diuxX", conv_specifier) != NULL)
-		return (true);
-	return (false);
-}
-
-char	get_padding_char(t_finfo *info)
-{
-	char	padding_char;
-
-	padding_char = ' ';
-	if (info->zero_flag && !is_numeric_conversion(info))
-		padding_char = '0';
-	return (padding_char);
-}
-
-size_t	get_padding_len(size_t len, t_finfo *info)
-{
-	size_t	padding_len;
-
-	padding_len = 0;
-	if (info->min_field_width >= 0 && info->min_field_width > len)
-		padding_len = info->min_field_width - len;
-	return (padding_len);
-}
-
-void	put_padding(size_t padding_len, t_finfo *info)
-{
-	while (padding_len--)
-		ft_putchar(get_padding_char(info));
-}
-
 void	put_c(char c, t_finfo *info)
 {
 	size_t	pad_len;
@@ -75,19 +39,6 @@ void	put_c(char c, t_finfo *info)
 		put_padding(pad_len, info);
 		ft_putchar(c);
 	}
-}
-
-size_t	get_print_len(char *s, t_finfo *info)
-{
-	size_t	print_len;
-
-	if (s == NULL)
-		print_len = ft_strlen(NULL_STR);
-	else
-		print_len = ft_strlen(s);
-	if (info->precision >= 0 && print_len > info->precision)
-		print_len = info->precision;
-	return (print_len);
 }
 
 void	put_s(char *s, t_finfo *info)
@@ -128,26 +79,6 @@ void	put_di(int nbr, t_finfo *info)
 	}
 	ft_putstr(s_nbr);
 	free(s_nbr);
-}
-
-size_t	get_print_len_num(char *s, t_finfo *info)
-{
-	size_t	print_len_num;
-
-	print_len_num = ft_strlen(s);
-	if (info->precision >= 0 && info->precision > print_len_num)
-		print_len_num = info->precision;
-	return (print_len_num);
-}
-
-size_t	get_padding_len_num(size_t len, t_finfo *info)
-{
-	size_t	padding_len_num;
-
-	padding_len_num = 0;
-	if (info->precision >= 0 && info->precision > len)
-		padding_len_num = info->precision - len;
-	return (padding_len_num);
 }
 
 void	put_padded_number

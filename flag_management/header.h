@@ -52,4 +52,14 @@ void	ft_putstr(const char *s);
 size_t	ft_strlen(const char *s);
 void	ft_putstr_len(const char *s, size_t max_len);
 
+/* put_utils1.c */
+size_t	get_padding_len(size_t len, t_finfo *info);
+char	get_padding_char(t_finfo *info);
+void	put_padding(size_t padding_len, t_finfo *info);
+size_t	get_print_len(char *s, t_finfo *info);
+
+/* put_utils2.c */
+size_t	get_print_len_num(char *s, t_finfo *info);
+size_t	get_padding_len_num(size_t len, t_finfo *info);
+
 #endif

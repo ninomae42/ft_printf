@@ -1,7 +1,7 @@
 #include "header.h"
 
 // create new struct pointer to handle flag information.
-t_finfo	*new_flag(void)
+t_finfo	*new_flag(int ret)
 {
 	t_finfo	*new;
 
@@ -17,6 +17,7 @@ t_finfo	*new_flag(void)
 	new->precision = -1;
 	new->conv_specifier = '\0';
 	new->is_error = false;
+	new->total_len = ret;
 	return (new);
 }
 

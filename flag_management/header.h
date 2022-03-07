@@ -24,16 +24,17 @@ typedef struct s_finfo {
 	int		precision;
 	char	conv_specifier;
 	bool	is_error;
+	int		total_len;
 }	t_finfo;
 
 /* parser.c / functions for flag parse and set its value */
 void	set_flag(const char flag, t_finfo **info);
 void	set_min_field_width(const char **fmt, t_finfo **info, va_list *ap);
 void	set_precision(const char **fmt, t_finfo **info, va_list *ap);
-void	parse_flag(const char **fmt, t_finfo **finfo, va_list *ap);
+void	parse_flag(const char **fmt, t_finfo **finfo, va_list *ap, int ret);
 
 /* parser_util.c / funcitons for flag parse utilities */
-t_finfo	*new_flag(void);
+t_finfo	*new_flag(int ret);
 void	print_flag_info(t_finfo *info);
 bool	is_conv_specifier(const char c);
 bool	is_flag(const char c);

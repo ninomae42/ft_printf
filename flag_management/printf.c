@@ -209,11 +209,11 @@ int	do_printf(const char *fmt, va_list *ap)
 	t_finfo	*finfo;
 
 	ret = 0;
-	while (*fmt != '\0')
+	while (*fmt != '\0' && ret != ERROR)
 	{
 		if (*fmt == '%')
 		{
-			parse_flag(&fmt, &finfo, ap);
+			parse_flag(&fmt, &finfo, ap, ret);
 			if (finfo == NULL)
 				return (ERROR);
 			if (finfo->is_error)

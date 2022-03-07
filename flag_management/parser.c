@@ -79,9 +79,9 @@ void	set_precision(const char **fmt, t_finfo **info, va_list *ap)
 }
 
 // parse the format string from next to '%' to conversion specifier
-void	parse_flag(const char **fmt, t_finfo **finfo, va_list *ap)
+void	parse_flag(const char **fmt, t_finfo **finfo, va_list *ap, int ret)
 {
-	*finfo = new_flag();
+	*finfo = new_flag(ret);
 	if (finfo == NULL)
 	{
 		*finfo = NULL;

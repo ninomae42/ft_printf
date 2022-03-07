@@ -60,19 +60,19 @@ void	put_padding(size_t padding_len, t_finfo *info)
 		ft_putchar(get_padding_char(info));
 }
 
-void	put_c(char c, t_finfo **info)
+void	put_c(char c, t_finfo *info)
 {
 	size_t	pad_len;
 
-	pad_len = get_padding_len(1, *info);
-	if ((*info)->minus_flag)
+	pad_len = get_padding_len(1, info);
+	if (info->minus_flag)
 	{
 		ft_putchar(c);
-		put_padding(pad_len, *info);
+		put_padding(pad_len, info);
 	}
 	else
 	{
-		put_padding(pad_len, *info);
+		put_padding(pad_len, info);
 		ft_putchar(c);
 	}
 }
@@ -90,26 +90,26 @@ size_t	get_print_len(char *s, t_finfo *info)
 	return (print_len);
 }
 
-void	put_s(char *s, t_finfo **info)
+void	put_s(char *s, t_finfo *info)
 {
 	size_t	pad_len;
 	size_t	print_len;
 
-	print_len = get_print_len(s, *info);
-	pad_len = get_padding_len(print_len, *info);
-	if ((*info)->minus_flag)
+	print_len = get_print_len(s, info);
+	pad_len = get_padding_len(print_len, info);
+	if (info->minus_flag)
 	{
 		ft_putstr_len(s, print_len);
-		put_padding(pad_len, *info);
+		put_padding(pad_len, info);
 	}
 	else
 	{
-		put_padding(pad_len, *info);
+		put_padding(pad_len, info);
 		ft_putstr_len(s, print_len);
 	}
 }
 
-void	put_di(int nbr, t_finfo **info)
+void	put_di(int nbr, t_finfo *info)
 {
 	char	*s_nbr;
 	char	sign_char;
@@ -117,12 +117,12 @@ void	put_di(int nbr, t_finfo **info)
 	s_nbr = ft_itoa(nbr);
 	if (s_nbr == NULL)
 	{
-		(*info)->is_error = true;
+		info->is_error = true;
 		return ;
 	}
-	if ((*info)->plus_flag || (*info)->space_flag)
+	if (info->plus_flag || info->space_flag)
 	{
-		sign_char = get_sign_char(*info, nbr);
+		sign_char = get_sign_char(info, nbr);
 		if (sign_char != '\0')
 			write(1, &sign_char, 1);
 	}
@@ -183,7 +183,7 @@ void	put_number(char *s_nbr, size_t padding_len, t_finfo *info)
 	}
 }
 
-void	put_u(unsigned int nbr, t_finfo **info)
+void	put_u(unsigned int nbr, t_finfo *info)
 {
 	char	*s_nbr;
 	size_t	padding_len;
@@ -192,58 +192,58 @@ void	put_u(unsigned int nbr, t_finfo **info)
 	s_nbr = ulonglong_toa_base(nbr, BASE_10);
 	if (s_nbr == NULL)
 	{
-		(*info)->is_error = true;
+		info->is_error = true;
 		return ;
 	}
-	padding_len = get_padding_len(get_print_len_num(s_nbr, *info), *info);
-	padding_len_num = get_padding_len_num(ft_strlen(s_nbr), *info);
+	padding_len = get_padding_len(get_print_len_num(s_nbr, info), info);
+	padding_len_num = get_padding_len_num(ft_strlen(s_nbr), info);
 	if (padding_len_num > 0)
-		put_padded_number(s_nbr, padding_len, padding_len_num, *info);
+		put_padded_number(s_nbr, padding_len, padding_len_num, info);
 	else
-		put_number(s_nbr, padding_len, *info);
+		put_number(s_nbr, padding_len, info);
 	free(s_nbr);
 }
 
-void	put_x_lower(unsigned int nbr, t_finfo **info)
+void	put_x_lower(unsigned int nbr, t_finfo *info)
 {
 	char	*s_nbr;
 
 	s_nbr = ulonglong_toa_base(nbr, BASE_16L);
 	if (s_nbr == NULL)
 	{
-		(*info)->is_error = true;
+		info->is_error = true;
 		return ;
 	}
-	if ((*info)->alter_flag && nbr != 0)
+	if (info->alter_flag && nbr != 0)
 		ft_putstr("0x");
 	ft_putstr(s_nbr);
 	free(s_nbr);
 }
 
-void	put_x_upper(unsigned int nbr, t_finfo **info)
+void	put_x_upper(unsigned int nbr, t_finfo *info)
 {
 	char	*s_nbr;
 
 	s_nbr = ulonglong_toa_base(nbr, BASE_16U);
 	if (s_nbr == NULL)
 	{
-		(*info)->is_error = true;
+		info->is_error = true;
 		return ;
 	}
-	if ((*info)->alter_flag && nbr != 0)
+	if (info->alter_flag && nbr != 0)
 		ft_putstr("0X");
 	ft_putstr(s_nbr);
 	free(s_nbr);
 }
 
-void	put_p(unsigned long long int nbr, t_finfo **info)
+void	put_p(unsigned long long int nbr, t_finfo *info)
 {
 	char	*s_nbr;
 
 	s_nbr = ulonglong_toa_base(nbr, BASE_16L);
 	if (s_nbr == NULL)
 	{
-		(*info)->is_error = true;
+		info->is_error = true;
 		return ;
 	}
 	ft_putstr("0x");
@@ -251,22 +251,22 @@ void	put_p(unsigned long long int nbr, t_finfo **info)
 	free(s_nbr);
 }
 
-void	put_fmt(t_finfo **info, va_list *ap, const char **fmt)
+void	put_fmt(t_finfo *info, va_list *ap, const char **fmt)
 {
-	if ((*info)->conv_specifier == 'c' || (*info)->conv_specifier == '%')
+	if (info->conv_specifier == 'c' || info->conv_specifier == '%')
 		put_c((unsigned char)va_arg(*ap, int), info);
-	else if ((*info)->conv_specifier == 's')
+	else if (info->conv_specifier == 's')
 		put_s(va_arg(*ap, char *), info);
-	else if ((*info)->conv_specifier == 'd'
-		|| (*info)->conv_specifier == 'i')
+	else if (info->conv_specifier == 'd'
+		|| info->conv_specifier == 'i')
 		put_di(va_arg(*ap, int), info);
-	else if ((*info)->conv_specifier == 'u')
+	else if (info->conv_specifier == 'u')
 		put_u(va_arg(*ap, unsigned int), info);
-	else if ((*info)->conv_specifier == 'x')
+	else if (info->conv_specifier == 'x')
 		put_x_lower(va_arg(*ap, unsigned int), info);
-	else if ((*info)->conv_specifier == 'X')
+	else if (info->conv_specifier == 'X')
 		put_x_upper(va_arg(*ap, unsigned int), info);
-	else if ((*info)->conv_specifier == 'p')
+	else if (info->conv_specifier == 'p')
 		put_p(va_arg(*ap, unsigned long long int), info);
 	else
 		put_c(*(*fmt)++, info);
@@ -290,8 +290,7 @@ int	do_printf(const char *fmt, va_list *ap)
 				free(finfo);
 				return (ERROR);
 			}
-			//print_flag_info(finfo);
-			put_fmt(&finfo, ap, &fmt);
+			put_fmt(finfo, ap, &fmt);
 			free(finfo);
 		}
 		else

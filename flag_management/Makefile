@@ -5,6 +5,8 @@ SRCS := printf.c \
 		itoa.c \
 		ulonglong_toa.c \
 		strutils.c \
+		put_utils1.c \
+		put_utils2.c \
 
 OBJS := $(SRCS:.c=.o)
 

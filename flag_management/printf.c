@@ -24,11 +24,24 @@ char	get_sign_char(t_finfo *info, int nbr)
 		return ('\0');
 }
 
+bool	is_overflow(size_t len, t_finfo *info)
+{
+	if (info->total_len + len > INT_MAX)
+		return (true);
+	return (false);
+}
+
 void	put_c(char c, t_finfo *info)
 {
 	size_t	pad_len;
 
 	pad_len = get_padding_len(1, info);
+	if (is_overflow(pad_len + 1, info))
+	{
+		info->total_len = ERROR;
+		return ;
+	}
+	info->total_len += pad_len + 1;
 	if (info->minus_flag)
 	{
 		ft_putchar(c);
@@ -48,6 +61,12 @@ void	put_s(char *s, t_finfo *info)
 
 	print_len = get_print_len(s, info);
 	pad_len = get_padding_len(print_len, info);
+	if (is_overflow(pad_len + print_len, info))
+	{
+		info->total_len = ERROR;
+		return ;
+	}
+	info->total_len += pad_len + print_len;
 	if (info->minus_flag)
 	{
 		ft_putstr_len(s, print_len);
@@ -167,18 +186,85 @@ void	put_x_upper(unsigned int nbr, t_finfo *info)
 	free(s_nbr);
 }
 
+void	put_padded_address
+	(char *s_nbr, size_t padding_len, size_t padding_len_num, t_finfo *info)
+{
+	if (info->minus_flag)
+	{
+		ft_putstr("0x");
+		while (padding_len_num--)
+			ft_putchar('0');
+		ft_putstr(s_nbr);
+		put_padding(padding_len, info);
+	}
+	else
+	{
+		if (info->zero_flag)
+		{
+			ft_putstr("0x");
+			put_padding(padding_len, info);
+			ft_putstr(s_nbr);
+		}
+		else
+		{
+			put_padding(padding_len, info);
+			ft_putstr("0x");
+			while (padding_len_num--)
+				ft_putchar('0');
+			ft_putstr(s_nbr);
+		}
+	}
+}
+
+void	put_address(char *s_nbr, size_t padding_len, t_finfo *info)
+{
+	if (info->minus_flag)
+	{
+		ft_putstr("0x");
+		ft_putstr(s_nbr);
+		put_padding(padding_len, info);
+	}
+	else
+	{
+		if (info->zero_flag)
+		{
+			ft_putstr("0x");
+			put_padding(padding_len, info);
+			ft_putstr(s_nbr);
+		}
+		else
+		{
+			put_padding(padding_len, info);
+			ft_putstr("0x");
+			ft_putstr(s_nbr);
+		}
+	}
+}
+
 void	put_p(unsigned long long int nbr, t_finfo *info)
 {
 	char	*s_nbr;
+	size_t	padding_len;
+	size_t	padding_len_num;
 
 	s_nbr = ulonglong_toa_base(nbr, BASE_16L);
 	if (s_nbr == NULL)
 	{
-		info->is_error = true;
+		info->total_len = ERROR;
 		return ;
 	}
-	ft_putstr("0x");
-	ft_putstr(s_nbr);
+	padding_len = get_padding_len(get_print_len_num(s_nbr, info) + 2, info);
+	padding_len_num = get_padding_len_num(ft_strlen(s_nbr), info);
+	if (is_overflow(padding_len + 2 + padding_len_num + ft_strlen(s_nbr), info))
+	{
+		info->total_len = ERROR;
+		return ;
+	}
+	info->total_len += padding_len + 2 + padding_len_num + ft_strlen(s_nbr);
+	if (padding_len_num > 0)
+		put_padded_address(s_nbr, padding_len, padding_len_num, info);
+	else
+		put_address(s_nbr, padding_len, info);
 	free(s_nbr);
 }
 
@@ -222,10 +308,14 @@ int	do_printf(const char *fmt, va_list *ap)
 				return (ERROR);
 			}
 			put_fmt(finfo, ap, &fmt);
+			ret = finfo->total_len;
 			free(finfo);
 		}
 		else
+		{
 			ft_putchar(*fmt++);
+			ret++;
+		}
 	}
 	return (ret);
 }
@@ -246,10 +336,33 @@ int	ft_printf(const char *fmt, ...)
 
 int	main(void)
 {
-	int	ret;
+	int	ret1;
+	int	ret2;
 
-	printf("[%-4.3u][%.u][%04.3u][%11.3u]\n", 10, 10, 10, UINT_MAX);
-	ft_printf("[%-4.3u][%.u][%04.3u][%11.3u]\n", 10, 10, 10, UINT_MAX);
+	ret1 = printf("[%-013.10p]\n", main);
+	ret2 = ft_printf("[%-013.10p]\n", main);
+	printf("\nret1: %d, ret2: %d\n", ret1, ret2);
+
+	/* ret1 = printf("[%12p]\n", main); */
+	/* ret2 = ft_printf("[%12p]\n", main); */
+	/* printf("\nret1: %d, ret2: %d\n", ret1, ret2); */
+	/* ret1 = printf("[%-12p]\n", main); */
+	/* ret2 = ft_printf("[%-12p]\n", main); */
+	/* printf("\nret1: %d, ret2: %d\n", ret1, ret2); */
+
+	/* ret1 = printf("[%012p]\n", main); */
+	/* ret2 = ft_printf("[%012p]\n", main); */
+	/* printf("\nret1: %d, ret2: %d\n", ret1, ret2); */
+	/* ret1 = printf("[%-012p]\n", main); */
+	/* ret2 = ft_printf("[%-012p]\n", main); */
+	/* printf("\nret1: %d, ret2: %d\n", ret1, ret2); */
+
+	/* ret1 = printf("hogehoge: %c, %s\n", 'A', "hogemoge"); */
+	/* ret2 = ft_printf("hogehoge: %c, %s\n", 'A', "hogemoge"); */
+	/* printf("ret1: %d, ret2: %d\n", ret1, ret2); */
+
+	/* printf("[%-4.3u][%.u][%04.3u][%11.3u]\n", 10, 10, 10, UINT_MAX); */
+	/* ft_printf("[%-4.3u][%.u][%04.3u][%11.3u]\n", 10, 10, 10, UINT_MAX); */
 
 	/* c with min_field_width, precision, and zero/minus flag. */
 	//printf("[%*.3s][%-04.*s]\n", -4, NULL, 3, "hogehoge");

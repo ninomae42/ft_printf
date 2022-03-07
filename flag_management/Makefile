@@ -24,7 +24,7 @@ all: $(NAME)
 
 clean:
 	$(RM) a.out
-#$(RM) $(OBJS)
+	$(RM) $(OBJS)
 
 fclean: clean
 	$(RM) $(NAME)

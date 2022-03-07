@@ -47,12 +47,10 @@ char	get_padding_char(t_finfo *info)
 size_t	get_padding_len(size_t len, t_finfo *info)
 {
 	size_t	padding_len;
-	size_t	min_field_width;
 
 	padding_len = 0;
-	min_field_width = info->min_field_width;
-	if (min_field_width >= 0 && min_field_width > len)
-		padding_len = min_field_width - len;
+	if (info->min_field_width >= 0 && info->min_field_width > len)
+		padding_len = info->min_field_width - len;
 	return (padding_len);
 }
 
@@ -132,9 +130,64 @@ void	put_di(int nbr, t_finfo **info)
 	free(s_nbr);
 }
 
+size_t	get_print_len_num(char *s, t_finfo *info)
+{
+	size_t	print_len_num;
+
+	print_len_num = ft_strlen(s);
+	if (info->precision >= 0 && info->precision > print_len_num)
+		print_len_num = info->precision;
+	return (print_len_num);
+}
+
+size_t	get_padding_len_num(size_t len, t_finfo *info)
+{
+	size_t	padding_len_num;
+
+	padding_len_num = 0;
+	if (info->precision >= 0 && info->precision > len)
+		padding_len_num = info->precision - len;
+	return (padding_len_num);
+}
+
+void	put_padded_number
+	(char *s_nbr, size_t padding_len, size_t padding_len_num, t_finfo *info)
+{
+	if (info->minus_flag)
+	{
+		while (padding_len_num--)
+			ft_putchar('0');
+		ft_putstr(s_nbr);
+		put_padding(padding_len, info);
+	}
+	else
+	{
+		put_padding(padding_len, info);
+		while (padding_len_num--)
+			ft_putchar('0');
+		ft_putstr(s_nbr);
+	}
+}
+
+void	put_number(char *s_nbr, size_t padding_len, t_finfo *info)
+{
+	if (info->minus_flag)
+	{
+		ft_putstr(s_nbr);
+		put_padding(padding_len, info);
+	}
+	else
+	{
+		put_padding(padding_len, info);
+		ft_putstr(s_nbr);
+	}
+}
+
 void	put_u(unsigned int nbr, t_finfo **info)
 {
 	char	*s_nbr;
+	size_t	padding_len;
+	size_t	padding_len_num;
 
 	s_nbr = ulonglong_toa_base(nbr, BASE_10);
 	if (s_nbr == NULL)
@@ -142,7 +195,12 @@ void	put_u(unsigned int nbr, t_finfo **info)
 		(*info)->is_error = true;
 		return ;
 	}
-	ft_putstr(s_nbr);
+	padding_len = get_padding_len(get_print_len_num(s_nbr, *info), *info);
+	padding_len_num = get_padding_len_num(ft_strlen(s_nbr), *info);
+	if (padding_len_num > 0)
+		put_padded_number(s_nbr, padding_len, padding_len_num, *info);
+	else
+		put_number(s_nbr, padding_len, *info);
 	free(s_nbr);
 }
 
@@ -232,6 +290,7 @@ int	do_printf(const char *fmt, va_list *ap)
 				free(finfo);
 				return (ERROR);
 			}
+			//print_flag_info(finfo);
 			put_fmt(&finfo, ap, &fmt);
 			free(finfo);
 		}
@@ -259,9 +318,12 @@ int	main(void)
 {
 	int	ret;
 
+	printf("[%-4.3u][%.u][%04.3u][%11.3u]\n", 10, 10, 10, UINT_MAX);
+	ft_printf("[%-4.3u][%.u][%04.3u][%11.3u]\n", 10, 10, 10, UINT_MAX);
+
 	/* c with min_field_width, precision, and zero/minus flag. */
-	printf("[%*.3s][%-04.*s]\n", -4, NULL, 3, "hogehoge");
-	ft_printf("[%*.3s][%-04.*s]\n", -4, NULL, 3, "hogehoge");
+	//printf("[%*.3s][%-04.*s]\n", -4, NULL, 3, "hogehoge");
+	//ft_printf("[%*.3s][%-04.*s]\n", -4, NULL, 3, "hogehoge");
 
 	/* handle non-conversion char appear between % and conversion specifier */
 	//printf("%-4b 2d\n", 10);

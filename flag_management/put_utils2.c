@@ -1,5 +1,12 @@
 #include "header.h"
 
+bool	is_overflow(size_t len, t_finfo *info)
+{
+	if (info->total_len + len > INT_MAX)
+		return (true);
+	return (false);
+}
+
 size_t	get_print_len_num(char *s, t_finfo *info)
 {
 	size_t	print_len_num;

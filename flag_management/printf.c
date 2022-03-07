@@ -1,17 +1,5 @@
 #include "header.h"
 
-/* typedef struct s_finfo { */
-/* 	bool	alter_flag; */
-/* 	bool	space_flag; */
-/* 	bool	plus_flag; */
-/* 	bool	zero_flag; */
-/* 	bool	minus_flag; */
-/* 	int		min_field_width; */
-/* 	int		precision; */
-/* 	char	conv_specifier; */
-/* 	bool	is_error; */
-/* }	t_finfo; */
-
 char	get_sign_char(t_finfo *info, int nbr)
 {
 	if (nbr >= 0)
@@ -22,61 +10,6 @@ char	get_sign_char(t_finfo *info, int nbr)
 	}
 	else
 		return ('\0');
-}
-
-bool	is_overflow(size_t len, t_finfo *info)
-{
-	if (info->total_len + len > INT_MAX)
-		return (true);
-	return (false);
-}
-
-void	put_c(char c, t_finfo *info)
-{
-	size_t	pad_len;
-
-	pad_len = get_padding_len(1, info);
-	if (is_overflow(pad_len + 1, info))
-	{
-		info->total_len = ERROR;
-		return ;
-	}
-	info->total_len += pad_len + 1;
-	if (info->minus_flag)
-	{
-		ft_putchar(c);
-		put_padding(pad_len, info);
-	}
-	else
-	{
-		put_padding(pad_len, info);
-		ft_putchar(c);
-	}
-}
-
-void	put_s(char *s, t_finfo *info)
-{
-	size_t	pad_len;
-	size_t	print_len;
-
-	print_len = get_print_len(s, info);
-	pad_len = get_padding_len(print_len, info);
-	if (is_overflow(pad_len + print_len, info))
-	{
-		info->total_len = ERROR;
-		return ;
-	}
-	info->total_len += pad_len + print_len;
-	if (info->minus_flag)
-	{
-		ft_putstr_len(s, print_len);
-		put_padding(pad_len, info);
-	}
-	else
-	{
-		put_padding(pad_len, info);
-		ft_putstr_len(s, print_len);
-	}
 }
 
 void	put_di(int nbr, t_finfo *info)
@@ -97,60 +30,6 @@ void	put_di(int nbr, t_finfo *info)
 			write(1, &sign_char, 1);
 	}
 	ft_putstr(s_nbr);
-	free(s_nbr);
-}
-
-void	put_padded_number
-	(char *s_nbr, size_t padding_len, size_t padding_len_num, t_finfo *info)
-{
-	if (info->minus_flag)
-	{
-		while (padding_len_num--)
-			ft_putchar('0');
-		ft_putstr(s_nbr);
-		put_padding(padding_len, info);
-	}
-	else
-	{
-		put_padding(padding_len, info);
-		while (padding_len_num--)
-			ft_putchar('0');
-		ft_putstr(s_nbr);
-	}
-}
-
-void	put_number(char *s_nbr, size_t padding_len, t_finfo *info)
-{
-	if (info->minus_flag)
-	{
-		ft_putstr(s_nbr);
-		put_padding(padding_len, info);
-	}
-	else
-	{
-		put_padding(padding_len, info);
-		ft_putstr(s_nbr);
-	}
-}
-
-void	put_u(unsigned int nbr, t_finfo *info)
-{
-	char	*s_nbr;
-	size_t	padding_len;
-	size_t	padding_len_num;
-
-	s_nbr = ulonglong_toa_base(nbr, BASE_10);
-	if (s_nbr == NULL)
-	{
-		info->is_error = true;
-		return ;
-	}
-	padding_len = get_padding_len(get_print_len_num(s_nbr, info), info);
-	padding_len_num = get_padding_len_num(ft_strlen(s_nbr), info);
-	if (padding_len_num > 0)
-		put_padded_number(s_nbr, padding_len, padding_len_num, info);
-	else
-		put_number(s_nbr, padding_len, info);
 	free(s_nbr);
 }
 
@@ -183,88 +62,6 @@ void	put_x_upper(unsigned int nbr, t_finfo *info)
 	if (info->alter_flag && nbr != 0)
 		ft_putstr("0X");
 	ft_putstr(s_nbr);
-	free(s_nbr);
-}
-
-void	put_padded_address
-	(char *s_nbr, size_t padding_len, size_t padding_len_num, t_finfo *info)
-{
-	if (info->minus_flag)
-	{
-		ft_putstr("0x");
-		while (padding_len_num--)
-			ft_putchar('0');
-		ft_putstr(s_nbr);
-		put_padding(padding_len, info);
-	}
-	else
-	{
-		if (info->zero_flag)
-		{
-			ft_putstr("0x");
-			put_padding(padding_len, info);
-			ft_putstr(s_nbr);
-		}
-		else
-		{
-			put_padding(padding_len, info);
-			ft_putstr("0x");
-			while (padding_len_num--)
-				ft_putchar('0');
-			ft_putstr(s_nbr);
-		}
-	}
-}
-
-void	put_address(char *s_nbr, size_t padding_len, t_finfo *info)
-{
-	if (info->minus_flag)
-	{
-		ft_putstr("0x");
-		ft_putstr(s_nbr);
-		put_padding(padding_len, info);
-	}
-	else
-	{
-		if (info->zero_flag)
-		{
-			ft_putstr("0x");
-			put_padding(padding_len, info);
-			ft_putstr(s_nbr);
-		}
-		else
-		{
-			put_padding(padding_len, info);
-			ft_putstr("0x");
-			ft_putstr(s_nbr);
-		}
-	}
-}
-
-void	put_p(unsigned long long int nbr, t_finfo *info)
-{
-	char	*s_nbr;
-	size_t	padding_len;
-	size_t	padding_len_num;
-
-	s_nbr = ulonglong_toa_base(nbr, BASE_16L);
-	if (s_nbr == NULL)
-	{
-		info->total_len = ERROR;
-		return ;
-	}
-	padding_len = get_padding_len(get_print_len_num(s_nbr, info) + 2, info);
-	padding_len_num = get_padding_len_num(ft_strlen(s_nbr), info);
-	if (is_overflow(padding_len + 2 + padding_len_num + ft_strlen(s_nbr), info))
-	{
-		info->total_len = ERROR;
-		return ;
-	}
-	info->total_len += padding_len + 2 + padding_len_num + ft_strlen(s_nbr);
-	if (padding_len_num > 0)
-		put_padded_address(s_nbr, padding_len, padding_len_num, info);
-	else
-		put_address(s_nbr, padding_len, info);
 	free(s_nbr);
 }
 

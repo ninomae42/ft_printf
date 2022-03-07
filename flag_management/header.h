@@ -60,7 +60,24 @@ void	put_padding(size_t padding_len, t_finfo *info);
 size_t	get_print_len(char *s, t_finfo *info);
 
 /* put_utils2.c */
+bool	is_overflow(size_t len, t_finfo *info);
 size_t	get_print_len_num(char *s, t_finfo *info);
 size_t	get_padding_len_num(size_t len, t_finfo *info);
+
+/* put_cs.c */
+void	put_c(char c, t_finfo *info);
+void	put_s(char *s, t_finfo *info);
+
+/* put_u.c */
+void	put_padded_number(char *s_nbr,
+			size_t padding_len, size_t padding_len_num, t_finfo *info);
+void	put_number(char *s_nbr, size_t padding_len, t_finfo *info);
+void	put_u(unsigned int nbr, t_finfo *info);
+
+/* put_p.c */
+void	put_padded_address(char *s_nbr,
+			size_t padding_len, size_t padding_len_num, t_finfo *info);
+void	put_address(char *s_nbr, size_t padding_len, t_finfo *info);
+void	put_p(unsigned long long int nbr, t_finfo *info);
 
 #endif

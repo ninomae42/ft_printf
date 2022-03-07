@@ -7,6 +7,9 @@ SRCS := printf.c \
 		strutils.c \
 		put_utils1.c \
 		put_utils2.c \
+		put_cs.c \
+		put_p.c \
+		put_u.c
 
 OBJS := $(SRCS:.c=.o)
 

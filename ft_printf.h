@@ -35,4 +35,17 @@ void	print_flag_info(t_info *info);
 bool	is_flag(const char flag);
 bool	is_conv_specifier(const char c);
 
+/* ft_putsome.c */
+size_t	ft_putchar_cnt(const char c);
+size_t	ft_strlen(const char *s);
+size_t	ft_putstr_cnt(const char *s);
+
+/* print_helper.c */
+bool	is_fmt_long(size_t current_len, t_info *info);
+size_t	get_padding_len(size_t print_len, t_info *info);
+
+/* put_c.c */
+ssize_t	put_pad_c(unsigned char c, size_t padding_len, t_info *info);
+ssize_t	put_c(unsigned char c, t_info *info);
+
 #endif

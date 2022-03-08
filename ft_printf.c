@@ -1,9 +1,15 @@
 #include "ft_printf.h"
 
-void	ft_putchar_cnt(const char c, int *cnt)
+ssize_t	put_arg(t_info *info, va_list *ap)
 {
-	write(1, &c, 1);
-	*cnt += 1;
+	ssize_t	res;
+
+	if (info->conv_specifier == 'c')
+		res = put_c((unsigned char)va_arg(*ap, int), info);
+	else
+		res = ERROR;
+	info->cnt = res;
+	return (res);
 }
 
 int	ft_printf(const char *fmt, ...)
@@ -16,29 +22,33 @@ int	ft_printf(const char *fmt, ...)
 		return (ERROR);
 	cnt = 0;
 	va_start(ap, fmt);
-	while (*fmt != '\0')
+	while (*fmt != '\0' && cnt != ERROR)
 	{
 		if (*fmt == '%')
 		{
 			info = parse_flag(&fmt, &ap, cnt);
 			if (info == NULL)
 				return (ERROR);
-			print_flag_info(info);
-			cnt = info->cnt;
+			if (put_arg(info, &ap) != -1)
+				cnt += info->cnt;
+			else
+				cnt = info->cnt;
 			free(info);
 		}
 		else
-			ft_putchar_cnt(*fmt++, &cnt);
+			cnt += ft_putchar_cnt(*fmt++);
 	}
 	return (cnt);
 }
 
 int	main(void)
 {
-	int	ret;
+	int	ret1;
+	int	ret2;
 
-	ret = ft_printf("hogehoge\n%-3.4chogehoge\n\n", 'A');
-	printf("ret: %d\n", ret);
+	ret1 = printf("hoge[%-*c]moge\n", 10, '/');
+	ret2 = ft_printf("hoge[%-*c]moge\n", 10, '/');
+	printf("\nret1: %d, ret2: %d\n", ret1, ret2);
 
 	/* ret = ft_printf("%-0*.*c\n\n", INT_MIN + 1, -INT_MAX, 'A'); */
 	/* printf("ret: %d\n", ret); */

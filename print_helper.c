@@ -16,3 +16,16 @@ size_t	get_padding_len(size_t print_len, t_info *info)
 		padding_len = info->min_width - print_len;
 	return (padding_len);
 }
+
+size_t	get_print_len(char *s, t_info *info)
+{
+	size_t	print_len;
+
+	if (s == NULL)
+		print_len = ft_strlen(NULL_STR);
+	else
+		print_len = ft_strlen(s);
+	if (info->precision >= 0 && print_len > info->precision)
+		print_len = info->precision;
+	return (print_len);
+}

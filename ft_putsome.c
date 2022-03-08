@@ -36,3 +36,24 @@ size_t	ft_putstr_cnt(const char *s)
 	write(1, s, len);
 	return (ret);
 }
+
+size_t	ft_putstr_len_cnt(const char *s, size_t max_len)
+{
+	size_t	len;
+	size_t	ret;
+
+	if (s == NULL)
+		return (0);
+	len = ft_strlen(s);
+	if (len > max_len)
+		len = max_len;
+	ret = len;
+	while (INT_MAX < len)
+	{
+		write(1, s, INT_MAX);
+		s += INT_MAX;
+		len -= INT_MAX;
+	}
+	write(1, s, len);
+	return (ret);
+}

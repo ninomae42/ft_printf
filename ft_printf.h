@@ -10,6 +10,7 @@
 # include <unistd.h>
 # define ERROR -1
 # define DEFAULT -1
+# define NULL_STR "(null)"
 
 typedef struct s_info {
 	bool	alternate;
@@ -39,13 +40,19 @@ bool	is_conv_specifier(const char c);
 size_t	ft_putchar_cnt(const char c);
 size_t	ft_strlen(const char *s);
 size_t	ft_putstr_cnt(const char *s);
+size_t	ft_putstr_len_cnt(const char *s, size_t max_len);
 
 /* print_helper.c */
 bool	is_fmt_long(size_t current_len, t_info *info);
 size_t	get_padding_len(size_t print_len, t_info *info);
+size_t	get_print_len(char *s, t_info *info);
 
 /* put_c.c */
 ssize_t	put_pad_c(unsigned char c, size_t padding_len, t_info *info);
 ssize_t	put_c(unsigned char c, t_info *info);
+
+/* put_s.c */
+ssize_t	put_pad_s(char *s, t_info *info, size_t padding_len, size_t print_len);
+ssize_t	put_s(char *s, t_info *info);
 
 #endif

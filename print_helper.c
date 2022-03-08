@@ -7,6 +7,14 @@ bool	is_fmt_long(size_t current_len, t_info *info)
 	return (false);
 }
 
+char	get_pad_char(t_info *info)
+{
+	if (info->zero_padding && !info->left_align)
+		return ('0');
+	else
+		return (' ');
+}
+
 size_t	get_padding_len(size_t print_len, t_info *info)
 {
 	size_t	padding_len;

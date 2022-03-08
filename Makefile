@@ -1,5 +1,7 @@
 SRCS := ft_printf.c \
 		ft_putsome.c \
+		itoa_base_8byte.c \
+		itoa_base_8byte_u.c \
 		parser.c \
 		parser_helper.c \
 		print_helper.c \

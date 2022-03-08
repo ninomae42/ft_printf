@@ -11,6 +11,8 @@
 # define ERROR -1
 # define DEFAULT -1
 # define NULL_STR "(null)"
+# define BASE_16_L "0123456789abcdef"
+# define BASE_16_U "0123456789ABCDEF"
 
 typedef struct s_info {
 	bool	alternate;
@@ -46,13 +48,23 @@ size_t	ft_putstr_len_cnt(const char *s, size_t max_len);
 bool	is_fmt_long(size_t current_len, t_info *info);
 size_t	get_padding_len(size_t print_len, t_info *info);
 size_t	get_print_len(char *s, t_info *info);
+char	get_pad_char(t_info *info);
 
 /* put_c.c */
 ssize_t	put_pad_c(unsigned char c, size_t padding_len, t_info *info);
 ssize_t	put_c(unsigned char c, t_info *info);
+ssize_t	put_percent(unsigned char c, t_info *info);
+ssize_t	put_pad_percent(unsigned char c, size_t padding_len, t_info *info);
 
 /* put_s.c */
 ssize_t	put_pad_s(char *s, t_info *info, size_t padding_len, size_t print_len);
 ssize_t	put_s(char *s, t_info *info);
+
+/* put_p.c */
+ssize_t	put_pad_p(char *p, t_info *info, size_t padding_len);
+ssize_t	put_p(unsigned long long int addr, t_info *info);
+
+/* itoa_base_8byte_u.c */
+char	*itoa_base_8byte_u(unsigned long long int n, char *base);
 
 #endif

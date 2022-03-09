@@ -6,18 +6,6 @@ size_t	ft_putchar_cnt(const char c)
 	return (1);
 }
 
-size_t	ft_strlen(const char *s)
-{
-	size_t	len;
-
-	if (s == NULL)
-		return (0);
-	len = 0;
-	while (s[len] != '\0')
-		len++;
-	return (len);
-}
-
 size_t	ft_putstr_cnt(const char *s)
 {
 	size_t	len;

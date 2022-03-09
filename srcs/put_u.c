@@ -1,4 +1,4 @@
-#include "ft_printf.h"
+#include "../includes/ft_printf.h"
 
 ssize_t	put_zero_pad_u(char *nbr, size_t padding_len_num)
 {
@@ -8,7 +8,7 @@ ssize_t	put_zero_pad_u(char *nbr, size_t padding_len_num)
 	pad = (char *)calloc(padding_len_num + 1, sizeof(char));
 	if (pad == NULL)
 		return (-1);
-	memset(pad, '0', padding_len_num);
+	ft_memset(pad, '0', padding_len_num);
 	if (padding_len_num > 0)
 	{
 		ret = ft_putstr_cnt(pad);
@@ -29,7 +29,7 @@ ssize_t	put_pad_u(char *nbr,
 	pad = (char *)calloc(padding_len + 1, sizeof(char));
 	if (pad == NULL)
 		return (-1);
-	memset(pad, get_pad_char(info), padding_len);
+	ft_memset(pad, get_pad_char(info), padding_len);
 	if (info->left_align)
 	{
 		ret = put_zero_pad_u(nbr, padding_len_num);

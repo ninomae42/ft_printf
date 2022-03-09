@@ -1,13 +1,7 @@
 #ifndef FT_PRINTF_H
 # define FT_PRINTF_H
-# include <ctype.h>
-# include <limits.h>
 # include <stdarg.h>
 # include <stdbool.h>
-# include <stdio.h>
-# include <stdlib.h>
-# include <string.h>
-# include <unistd.h>
 # include "libft.h"
 # define ERROR -1
 # define DEFAULT -1
@@ -28,7 +22,7 @@ typedef struct s_info {
 	int		cnt;
 }	t_info;
 
-int	ft_printf(const char *fmt, ...);
+int		ft_printf(const char *fmt, ...);
 
 /* parser.c */
 t_info	*parse_flag(const char **fmt, va_list *ap, int cnt);

@@ -1,4 +1,4 @@
-#include "ft_printf.h"
+#include "../includes/ft_printf.h"
 
 size_t	ft_putchar_cnt(const char c)
 {

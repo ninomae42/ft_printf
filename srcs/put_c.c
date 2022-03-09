@@ -1,4 +1,4 @@
-#include "ft_printf.h"
+#include "../includes/ft_printf.h"
 
 ssize_t	put_pad_c(unsigned char c, size_t padding_len, t_info *info)
 {
@@ -8,7 +8,7 @@ ssize_t	put_pad_c(unsigned char c, size_t padding_len, t_info *info)
 	pad = (char *)calloc(padding_len + 1, sizeof(char));
 	if (pad == NULL)
 		return (-1);
-	memset(pad, ' ', padding_len);
+	ft_memset(pad, ' ', padding_len);
 	if (info->left_align)
 	{
 		ret = ft_putchar_cnt(c);
@@ -61,7 +61,7 @@ ssize_t	put_pad_percent(unsigned char c, size_t padding_len, t_info *info)
 	pad = (char *)calloc(padding_len + 1, sizeof(char));
 	if (pad == NULL)
 		return (-1);
-	memset(pad, get_pad_char(info), padding_len);
+	ft_memset(pad, get_pad_char(info), padding_len);
 	if (info->left_align)
 	{
 		ret = ft_putchar_cnt(c);

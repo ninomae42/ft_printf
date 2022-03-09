@@ -1,4 +1,4 @@
-#include "ft_printf.h"
+#include "../includes/ft_printf.h"
 
 t_info	*parse_flag(const char **fmt, va_list *ap, int cnt)
 {
@@ -10,7 +10,7 @@ t_info	*parse_flag(const char **fmt, va_list *ap, int cnt)
 	(*fmt)++;
 	while (is_flag(**fmt))
 		set_flag((*(*fmt)++), info);
-	if (isdigit(**fmt) || **fmt == '*')
+	if (ft_isdigit(**fmt) || **fmt == '*')
 		set_min_width(fmt, info, ap);
 	if (**fmt == '.' && *(*fmt + 1) == '*')
 		set_precision(fmt, info, ap);
@@ -67,7 +67,7 @@ void	set_min_width(const char **fmt, t_info *info, va_list *ap)
 	else
 	{
 		info->min_width = atoi(*fmt);
-		while (isdigit(**fmt))
+		while (ft_isdigit(**fmt))
 			(*fmt)++;
 	}
 }
@@ -93,7 +93,7 @@ void	set_precision(const char **fmt, t_info *info, va_list *ap)
 			info->precision = precision;
 		else
 			info->precision = DEFAULT;
-		while (isdigit(**fmt))
+		while (ft_isdigit(**fmt))
 			(*fmt)++;
 	}
 }

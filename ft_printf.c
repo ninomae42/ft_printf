@@ -12,6 +12,8 @@ ssize_t	put_arg(t_info *info, va_list *ap)
 		res = put_p((unsigned long long int)va_arg(*ap, void *), info);
 	else if (info->conv_specifier == 'u')
 		res = put_u(va_arg(*ap, unsigned int), info);
+	else if (info->conv_specifier == 'x')
+		res = put_x(va_arg(*ap, unsigned int), info, BASE_16_L);
 	else if (info->conv_specifier == '%')
 		res = put_percent('%', info);
 	else
@@ -54,9 +56,17 @@ int	main(void)
 	int	ret1;
 	int	ret2;
 
-	ret1 = printf("[%04.3u]\n", 42);
-	ret2 = ft_printf("[%04.3u]\n", 42);
+	ret1 = printf("[%#05x]\n", 42);
+	ret2 = ft_printf("[%#05x]\n", 42);
 	printf("\nret1: %d, ret2: %d\n", ret1, ret2);
+
+	ret1 = printf("[%#5x]\n", 42);
+	ret2 = ft_printf("[%#5x]\n", 42);
+	printf("\nret1: %d, ret2: %d\n", ret1, ret2);
+
+	/* ret1 = printf("[%04.3u]\n", 42); */
+	/* ret2 = ft_printf("[%04.3u]\n", 42); */
+	/* printf("\nret1: %d, ret2: %d\n", ret1, ret2); */
 
 	/* ret1 = printf("[%-13p]\n", NULL); */
 	/* ret2 = ft_printf("[%-13p]\n", NULL); */

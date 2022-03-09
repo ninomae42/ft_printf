@@ -54,6 +54,9 @@ char	get_pad_char(t_info *info);
 /* print_helper2.c */
 size_t	get_print_len_n(char *nbr, t_info *info);
 size_t	get_zero_pad_len(char *nbr, t_info *info);
+size_t	get_print_len_hex(unsigned int n, char *nbr, t_info *info);
+bool	is_alter_valid(char *nbr, t_info *info);
+char	*create_padding(size_t padding_len, char padding_char);
 
 /* put_c.c */
 ssize_t	put_pad_c(unsigned char c, size_t padding_len, t_info *info);
@@ -74,6 +77,12 @@ ssize_t	put_zero_pad_u(char *nbr, t_info *info, size_t padding_len_num);
 ssize_t	put_pad_u(char *nbr,
 			t_info *info, size_t padding_len, size_t padding_len_num);
 ssize_t	put_u(unsigned int n, t_info *info);
+
+/* put_x.c */
+ssize_t	put_x(unsigned int n, t_info *info, char *base);
+ssize_t	put_pad_x(char *nbr,
+			t_info *info, size_t padding_len, size_t padding_len_num);
+ssize_t	put_zero_pad_x(char *nbr, t_info *info, size_t padding_len_num);
 
 /* itoa_base_8byte_u.c */
 char	*itoa_base_8byte_u(unsigned long long int n, char *base);

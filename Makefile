@@ -9,7 +9,8 @@ SRCS := ft_printf.c \
 		put_c.c \
 		put_p.c \
 		put_s.c \
-		put_u.c
+		put_u.c \
+		put_x.c
 
 CC := cc
 

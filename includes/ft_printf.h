@@ -8,6 +8,7 @@
 # include <stdlib.h>
 # include <string.h>
 # include <unistd.h>
+# include "libft.h"
 # define ERROR -1
 # define DEFAULT -1
 # define NULL_STR "(null)"
@@ -27,6 +28,8 @@ typedef struct s_info {
 	int		cnt;
 }	t_info;
 
+int	ft_printf(const char *fmt, ...);
+
 /* parser.c */
 t_info	*parse_flag(const char **fmt, va_list *ap, int cnt);
 void	set_flag(const char flag, t_info *info);
@@ -41,7 +44,6 @@ bool	is_conv_specifier(const char c);
 
 /* ft_putsome.c */
 size_t	ft_putchar_cnt(const char c);
-size_t	ft_strlen(const char *s);
 size_t	ft_putstr_cnt(const char *s);
 size_t	ft_putstr_len_cnt(const char *s, size_t max_len);
 
@@ -80,7 +82,7 @@ ssize_t	put_pad_p(char *p, t_info *info, size_t padding_len);
 ssize_t	put_p(unsigned long long int addr, t_info *info);
 
 /* put_u.c */
-ssize_t	put_zero_pad_u(char *nbr, t_info *info, size_t padding_len_num);
+ssize_t	put_zero_pad_u(char *nbr, size_t padding_len_num);
 ssize_t	put_pad_u(char *nbr,
 			t_info *info, size_t padding_len, size_t padding_len_num);
 ssize_t	put_u(unsigned int n, t_info *info);
@@ -90,9 +92,6 @@ ssize_t	put_x(unsigned int n, t_info *info, char *base);
 ssize_t	put_pad_x(char *nbr,
 			t_info *info, size_t padding_len, size_t padding_len_num);
 ssize_t	put_zero_pad_x(char *nbr, t_info *info, size_t padding_len_num);
-
-/* itoa.c */
-char	*ft_itoa(int n);
 
 /* itoa_base_8byte_u.c */
 char	*itoa_base_8byte_u(unsigned long long int n, char *base);

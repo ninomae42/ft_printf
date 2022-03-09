@@ -11,6 +11,7 @@
 # define ERROR -1
 # define DEFAULT -1
 # define NULL_STR "(null)"
+# define BASE_10 "0123456789"
 # define BASE_16_L "0123456789abcdef"
 # define BASE_16_U "0123456789ABCDEF"
 
@@ -50,6 +51,10 @@ size_t	get_padding_len(size_t print_len, t_info *info);
 size_t	get_print_len(char *s, t_info *info);
 char	get_pad_char(t_info *info);
 
+/* print_helper2.c */
+size_t	get_print_len_n(char *nbr, t_info *info);
+size_t	get_zero_pad_len(char *nbr, t_info *info);
+
 /* put_c.c */
 ssize_t	put_pad_c(unsigned char c, size_t padding_len, t_info *info);
 ssize_t	put_c(unsigned char c, t_info *info);
@@ -63,6 +68,12 @@ ssize_t	put_s(char *s, t_info *info);
 /* put_p.c */
 ssize_t	put_pad_p(char *p, t_info *info, size_t padding_len);
 ssize_t	put_p(unsigned long long int addr, t_info *info);
+
+/* put_u.c */
+ssize_t	put_zero_pad_u(char *nbr, t_info *info, size_t padding_len_num);
+ssize_t	put_pad_u(char *nbr,
+			t_info *info, size_t padding_len, size_t padding_len_num);
+ssize_t	put_u(unsigned int n, t_info *info);
 
 /* itoa_base_8byte_u.c */
 char	*itoa_base_8byte_u(unsigned long long int n, char *base);

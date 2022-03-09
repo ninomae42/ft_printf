@@ -9,7 +9,9 @@ bool	is_fmt_long(size_t current_len, t_info *info)
 
 char	get_pad_char(t_info *info)
 {
-	if (info->zero_padding && !info->left_align)
+	if (info->zero_padding && !info->left_align && info->precision >= 0)
+		return (' ');
+	else if (info->zero_padding && !info->left_align)
 		return ('0');
 	else
 		return (' ');

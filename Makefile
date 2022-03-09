@@ -5,8 +5,11 @@ SRCS := ft_printf.c \
 		parser.c \
 		parser_helper.c \
 		print_helper.c \
+		print_helper2.c \
 		put_c.c \
-		put_s.c
+		put_p.c \
+		put_s.c \
+		put_u.c
 
 CC := cc
 

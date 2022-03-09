@@ -8,6 +8,8 @@ ssize_t	put_arg(t_info *info, va_list *ap)
 		res = put_c((unsigned char)va_arg(*ap, int), info);
 	else if (info->conv_specifier == 's')
 		res = put_s(va_arg(*ap, char *), info);
+	else if (info->conv_specifier == 'd' || info->conv_specifier == 'i')
+		res = put_di(va_arg(*ap, int), info);
 	else if (info->conv_specifier == 'p')
 		res = put_p((unsigned long long int)va_arg(*ap, void *), info);
 	else if (info->conv_specifier == 'u')
@@ -58,17 +60,88 @@ int	main(void)
 	int	ret1;
 	int	ret2;
 
-	ret1 = printf("[%#05X]\n", 0);
-	ret2 = ft_printf("[%#05X]\n", 0);
+	ret1 = printf("[%d]\n", 42);
+	ret2 = ft_printf("[%d]\n", 42);
 	printf("\nret1: %d, ret2: %d\n", ret1, ret2);
 
-	ret1 = printf("[%#05X]\n", 42);
-	ret2 = ft_printf("[%#05X]\n", 42);
+	ret1 = printf("[%d]\n", INT_MAX);
+	ret2 = ft_printf("[%d]\n", INT_MAX);
 	printf("\nret1: %d, ret2: %d\n", ret1, ret2);
 
-	ret1 = printf("[%#5X]\n", 42);
-	ret2 = ft_printf("[%#5X]\n", 42);
+	ret1 = printf("[%d]\n", INT_MIN);
+	ret2 = ft_printf("[%d]\n", INT_MIN);
 	printf("\nret1: %d, ret2: %d\n", ret1, ret2);
+
+	ret1 = printf("[% d]\n", 42);
+	ret2 = ft_printf("[% d]\n", 42);
+	printf("\nret1: %d, ret2: %d\n", ret1, ret2);
+	ret1 = printf("[%+d]\n", 42);
+	ret2 = ft_printf("[%+d]\n", 42);
+	printf("\nret1: %d, ret2: %d\n", ret1, ret2);
+
+	ret1 = printf("[% d]\n", -42);
+	ret2 = ft_printf("[% d]\n", -42);
+	printf("\nret1: %d, ret2: %d\n", ret1, ret2);
+	ret1 = printf("[%+d]\n", -42);
+	ret2 = ft_printf("[%+d]\n", -42);
+	printf("\nret1: %d, ret2: %d\n", ret1, ret2);
+
+	ret1 = printf("[%.5d]\n", 42);
+	ret2 = ft_printf("[%.5d]\n", 42);
+	printf("\nret1: %d, ret2: %d\n", ret1, ret2);
+
+	ret1 = printf("[%4d]\n", 42);
+	ret2 = ft_printf("[%4d]\n", 42);
+	printf("\nret1: %d, ret2: %d\n", ret1, ret2);
+
+	ret1 = printf("[%4.3d]\n", 42);
+	ret2 = ft_printf("[%4.3d]\n", 42);
+	printf("\nret1: %d, ret2: %d\n", ret1, ret2);
+
+	ret1 = printf("[%04d]\n", 42);
+	ret2 = ft_printf("[%04d]\n", 42);
+	printf("\nret1: %d, ret2: %d\n", ret1, ret2);
+
+	ret1 = printf("[%+04d]\n", 42);
+	ret2 = ft_printf("[%+04d]\n", 42);
+	printf("\nret1: %d, ret2: %d\n", ret1, ret2);
+
+	ret1 = printf("[%-+04d]\n", 42);
+	ret2 = ft_printf("[%-+04d]\n", 42);
+	printf("\nret1: %d, ret2: %d\n", ret1, ret2);
+
+	ret1 = printf("[%- 04d]\n", 42);
+	ret2 = ft_printf("[%- 04d]\n", 42);
+	printf("\nret1: %d, ret2: %d\n", ret1, ret2);
+
+	ret1 = printf("[% 04.1d]\n", 42);
+	ret2 = ft_printf("[% 04.1d]\n", 42);
+	printf("\nret1: %d, ret2: %d\n", ret1, ret2);
+
+	ret1 = printf("[%+d]\n", 0);
+	ret2 = ft_printf("[%+1d]\n", 0);
+	printf("\nret1: %d, ret2: %d\n", ret1, ret2);
+
+	ret1 = printf("[%+d]\n", -1);
+	ret2 = ft_printf("[%+d]\n", -1);
+	printf("\nret1: %d, ret2: %d\n", ret1, ret2);
+
+	/* ret1 = printf("[% .5d]\n", 42); */
+	/* ret1 = printf("[%+d]\n", 0); */
+	/* ret1 = printf("[%05+d]\n", 42); */
+	/* ret1 = printf("[%5+.3d]\n", 42); */
+
+	/* ret1 = printf("[%#05X]\n", 0); */
+	/* ret2 = ft_printf("[%#05X]\n", 0); */
+	/* printf("\nret1: %d, ret2: %d\n", ret1, ret2); */
+
+	/* ret1 = printf("[%#05X]\n", 42); */
+	/* ret2 = ft_printf("[%#05X]\n", 42); */
+	/* printf("\nret1: %d, ret2: %d\n", ret1, ret2); */
+
+	/* ret1 = printf("[%#5X]\n", 42); */
+	/* ret2 = ft_printf("[%#5X]\n", 42); */
+	/* printf("\nret1: %d, ret2: %d\n", ret1, ret2); */
 
 	/* ret1 = printf("[%#05x]\n", 42); */
 	/* ret2 = ft_printf("[%#05x]\n", 42); */

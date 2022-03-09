@@ -39,3 +39,14 @@ size_t	get_print_len(char *s, t_info *info)
 		print_len = info->precision;
 	return (print_len);
 }
+
+char	*create_padding(size_t padding_len, char padding_char)
+{
+	char	*pad;
+
+	pad = (char *)calloc(padding_len + 1, sizeof(char));
+	if (pad == NULL)
+		return (NULL);
+	memset(pad, padding_char, padding_len);
+	return (pad);
+}

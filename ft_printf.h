@@ -50,19 +50,26 @@ bool	is_fmt_long(size_t current_len, t_info *info);
 size_t	get_padding_len(size_t print_len, t_info *info);
 size_t	get_print_len(char *s, t_info *info);
 char	get_pad_char(t_info *info);
+char	*create_padding(size_t padding_len, char padding_char);
 
 /* print_helper2.c */
 size_t	get_print_len_n(char *nbr, t_info *info);
 size_t	get_zero_pad_len(char *nbr, t_info *info);
 size_t	get_print_len_hex(unsigned int n, char *nbr, t_info *info);
+size_t	get_print_len_di(int n, char *nbr, t_info *info);
 bool	is_alter_valid(char *nbr, t_info *info);
-char	*create_padding(size_t padding_len, char padding_char);
 
 /* put_c.c */
 ssize_t	put_pad_c(unsigned char c, size_t padding_len, t_info *info);
 ssize_t	put_c(unsigned char c, t_info *info);
 ssize_t	put_percent(unsigned char c, t_info *info);
 ssize_t	put_pad_percent(unsigned char c, size_t padding_len, t_info *info);
+
+/* put_di.c */
+ssize_t	put_zero_pad_di(char *nbr, t_info *info, size_t padding_len_num);
+ssize_t	put_pad_di(char *nbr,
+			t_info *info, size_t padding_len, size_t padding_len_num);
+ssize_t	put_di(int n, t_info *info);
 
 /* put_s.c */
 ssize_t	put_pad_s(char *s, t_info *info, size_t padding_len, size_t print_len);
@@ -83,6 +90,9 @@ ssize_t	put_x(unsigned int n, t_info *info, char *base);
 ssize_t	put_pad_x(char *nbr,
 			t_info *info, size_t padding_len, size_t padding_len_num);
 ssize_t	put_zero_pad_x(char *nbr, t_info *info, size_t padding_len_num);
+
+/* itoa.c */
+char	*ft_itoa(int n);
 
 /* itoa_base_8byte_u.c */
 char	*itoa_base_8byte_u(unsigned long long int n, char *base);

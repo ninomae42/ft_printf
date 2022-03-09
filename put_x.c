@@ -9,8 +9,10 @@ ssize_t	put_zero_pad_x(char *nbr, t_info *info, size_t padding_len_num)
 	if (pad == NULL)
 		return (-1);
 	ret = 0;
-	if (is_alter_valid(nbr, info))
+	if (is_alter_valid(nbr, info) && info->conv_specifier == 'x')
 		ret = ft_putstr_cnt("0x");
+	else if (is_alter_valid(nbr, info) && info->conv_specifier == 'X')
+		ret = ft_putstr_cnt("0X");
 	if (padding_len_num > 0)
 		ret += ft_putstr_cnt(pad);
 	ret += ft_putstr_cnt(nbr);

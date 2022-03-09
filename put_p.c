@@ -47,5 +47,6 @@ ssize_t	put_p(unsigned long long int addr, t_info *info)
 		ret = ft_putstr_cnt("0x");
 		ret += ft_putstr_cnt(p);
 	}
+	free(p);
 	return (ret);
 }

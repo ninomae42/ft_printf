@@ -33,6 +33,8 @@ size_t	get_print_len_hex(unsigned int n, char *nbr, t_info *info)
 {
 	size_t	print_len;
 
+	if (n == 0 && info->precision == 0)
+		return (0);
 	print_len = ft_strlen(nbr);
 	if (info->precision >= 0 && (size_t)info->precision > print_len)
 		print_len = info->precision;

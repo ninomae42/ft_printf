@@ -1,10 +1,26 @@
 #include "../includes/ft_printf.h"
 
+static bool	is_precision_nbr_zero(char *nbr, t_info *info)
+{
+	if (info->precision == 0)
+	{
+		if (info->conv_specifier == 'x'
+			&& ft_atoi_base_4byte_u(nbr, BASE_16_L) == 0)
+			return (true);
+		if (info->conv_specifier == 'X'
+			&& ft_atoi_base_4byte_u(nbr, BASE_16_U) == 0)
+			return (true);
+	}
+	return (false);
+}
+
 ssize_t	put_zero_pad_x(char *nbr, t_info *info, size_t padding_len_num)
 {
 	char	*pad;
 	size_t	ret;
 
+	if (is_precision_nbr_zero(nbr, info))
+		return (0);
 	pad = create_padding(padding_len_num, '0');
 	if (pad == NULL)
 		return (-1);

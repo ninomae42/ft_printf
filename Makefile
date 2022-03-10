@@ -2,6 +2,7 @@ NAME := libftprintf.a
 SRCDIR := ./srcs/
 SRCS := ft_printf.c \
 		ft_putsome.c \
+		ft_atoi_base_4byte_u.c \
 		itoa_base_8byte_u.c \
 		parser.c \
 		parser_helper.c \

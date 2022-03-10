@@ -1,30 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_printf.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tashimiz <tashimiz@stdent.42tokyo.jp>      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/03/10 19:37:16 by tashimiz          #+#    #+#             */
+/*   Updated: 2022/03/10 19:37:29 by tashimiz         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/ft_printf.h"
 
-ssize_t	put_arg(t_info *info, va_list *ap)
-{
-	ssize_t	res;
-
-	if (info->conv_specifier == 'c')
-		res = put_c((unsigned char)va_arg(*ap, int), info);
-	else if (info->conv_specifier == 's')
-		res = put_s(va_arg(*ap, char *), info);
-	else if (info->conv_specifier == 'd' || info->conv_specifier == 'i')
-		res = put_di(va_arg(*ap, int), info);
-	else if (info->conv_specifier == 'p')
-		res = put_p((unsigned long long int)va_arg(*ap, void *), info);
-	else if (info->conv_specifier == 'u')
-		res = put_u(va_arg(*ap, unsigned int), info);
-	else if (info->conv_specifier == 'x')
-		res = put_x(va_arg(*ap, unsigned int), info, BASE_16_L);
-	else if (info->conv_specifier == 'X')
-		res = put_x(va_arg(*ap, unsigned int), info, BASE_16_U);
-	else if (info->conv_specifier == '%')
-		res = put_percent('%', info);
-	else
-		res = ERROR;
-	info->cnt = res;
-	return (res);
-}
+ssize_t	put_arg(t_info *info, va_list *ap);
 
 int	ft_printf(const char *fmt, ...)
 {
@@ -53,4 +41,30 @@ int	ft_printf(const char *fmt, ...)
 			cnt += ft_putchar_cnt(*fmt++);
 	}
 	return (cnt);
+}
+
+ssize_t	put_arg(t_info *info, va_list *ap)
+{
+	ssize_t	res;
+
+	if (info->conv_specifier == 'c')
+		res = put_c((unsigned char)va_arg(*ap, int), info);
+	else if (info->conv_specifier == 's')
+		res = put_s(va_arg(*ap, char *), info);
+	else if (info->conv_specifier == 'd' || info->conv_specifier == 'i')
+		res = put_di(va_arg(*ap, int), info);
+	else if (info->conv_specifier == 'p')
+		res = put_p((unsigned long long int)va_arg(*ap, void *), info);
+	else if (info->conv_specifier == 'u')
+		res = put_u(va_arg(*ap, unsigned int), info);
+	else if (info->conv_specifier == 'x')
+		res = put_x(va_arg(*ap, unsigned int), info, BASE_16_L);
+	else if (info->conv_specifier == 'X')
+		res = put_x(va_arg(*ap, unsigned int), info, BASE_16_U);
+	else if (info->conv_specifier == '%')
+		res = put_percent('%', info);
+	else
+		res = ERROR;
+	info->cnt = res;
+	return (res);
 }

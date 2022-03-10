@@ -4,6 +4,8 @@ size_t	get_print_len_n(char *nbr, t_info *info)
 {
 	size_t	precision_len;
 
+	if (ft_atoi(nbr) == 0 && info->precision == 0)
+		return (0);
 	precision_len = ft_strlen(nbr);
 	if (info->precision >= 0 && (size_t)info->precision > precision_len)
 		precision_len = info->precision;

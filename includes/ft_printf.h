@@ -76,7 +76,7 @@ ssize_t	put_pad_p(char *p, t_info *info, size_t padding_len);
 ssize_t	put_p(unsigned long long int addr, t_info *info);
 
 /* put_u.c */
-ssize_t	put_zero_pad_u(char *nbr, size_t padding_len_num);
+ssize_t	put_zero_pad_u(char *nbr, size_t padding_len_num, t_info *info);
 ssize_t	put_pad_u(char *nbr,
 			t_info *info, size_t padding_len, size_t padding_len_num);
 ssize_t	put_u(unsigned int n, t_info *info);

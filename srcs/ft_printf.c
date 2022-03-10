@@ -6,7 +6,7 @@
 /*   By: tashimiz <tashimiz@stdent.42tokyo.jp>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/10 19:37:16 by tashimiz          #+#    #+#             */
-/*   Updated: 2022/03/10 19:37:29 by tashimiz         ###   ########.fr       */
+/*   Updated: 2022/03/10 20:08:53 by tashimiz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	ft_printf(const char *fmt, ...)
 			info = parse_flag(&fmt, &ap, cnt);
 			if (info == NULL)
 				return (ERROR);
-			if (put_arg(info, &ap) != -1)
+			if (put_arg(info, &ap) != ERROR)
 				cnt += info->cnt;
 			else
 				cnt = info->cnt;

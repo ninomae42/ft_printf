@@ -6,7 +6,7 @@
 /*   By: tashimiz <tashimiz@stdent.42tokyo.jp>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/10 19:38:43 by tashimiz          #+#    #+#             */
-/*   Updated: 2022/03/10 19:38:44 by tashimiz         ###   ########.fr       */
+/*   Updated: 2022/03/10 19:52:57 by tashimiz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static bool	is_sign_flag_valid(char *nbr, t_info *info)
 {
 	int	n;
 
-	n = atoi(nbr);
+	n = ft_atoi(nbr);
 	if ((info->sign_space || info->sign) && n >= 0)
 		return (true);
 	return (false);

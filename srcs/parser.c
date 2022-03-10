@@ -6,7 +6,7 @@
 /*   By: tashimiz <tashimiz@stdent.42tokyo.jp>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/10 19:38:04 by tashimiz          #+#    #+#             */
-/*   Updated: 2022/03/10 19:38:05 by tashimiz         ###   ########.fr       */
+/*   Updated: 2022/03/10 19:57:46 by tashimiz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ void	set_min_width(const char **fmt, t_info *info, va_list *ap)
 	}
 	else
 	{
-		info->min_width = atoi(*fmt);
+		info->min_width = ft_atoi(*fmt);
 		while (ft_isdigit(**fmt))
 			(*fmt)++;
 	}
@@ -100,7 +100,7 @@ void	set_precision(const char **fmt, t_info *info, va_list *ap)
 	else
 	{
 		(*fmt)++;
-		precision = atoi(*fmt);
+		precision = ft_atoi(*fmt);
 		if (precision >= 0)
 			info->precision = precision;
 		else

@@ -6,7 +6,7 @@
 /*   By: tashimiz <tashimiz@stdent.42tokyo.jp>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/10 19:39:12 by tashimiz          #+#    #+#             */
-/*   Updated: 2022/03/10 19:39:13 by tashimiz         ###   ########.fr       */
+/*   Updated: 2022/03/10 20:00:16 by tashimiz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ ssize_t	put_zero_pad_u(char *nbr, size_t padding_len_num, t_info *info)
 
 	if (info->precision == 0 && ft_atoi(nbr) == 0)
 		return (0);
-	pad = (char *)calloc(padding_len_num + 1, sizeof(char));
+	pad = (char *)ft_calloc(padding_len_num + 1, sizeof(char));
 	if (pad == NULL)
 		return (-1);
 	ft_memset(pad, '0', padding_len_num);
@@ -40,7 +40,7 @@ ssize_t	put_pad_u(char *nbr,
 	char	*pad;
 	size_t	ret;
 
-	pad = (char *)calloc(padding_len + 1, sizeof(char));
+	pad = (char *)ft_calloc(padding_len + 1, sizeof(char));
 	if (pad == NULL)
 		return (-1);
 	ft_memset(pad, get_pad_char(info), padding_len);

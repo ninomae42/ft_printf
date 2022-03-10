@@ -6,7 +6,7 @@
 /*   By: tashimiz <tashimiz@stdent.42tokyo.jp>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/10 19:38:20 by tashimiz          #+#    #+#             */
-/*   Updated: 2022/03/10 19:38:21 by tashimiz         ###   ########.fr       */
+/*   Updated: 2022/03/10 19:52:14 by tashimiz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ char	*create_padding(size_t padding_len, char padding_char)
 {
 	char	*pad;
 
-	pad = (char *)calloc(padding_len + 1, sizeof(char));
+	pad = (char *)ft_calloc(padding_len + 1, sizeof(char));
 	if (pad == NULL)
 		return (NULL);
 	ft_memset(pad, padding_char, padding_len);

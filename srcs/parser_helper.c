@@ -6,7 +6,7 @@
 /*   By: tashimiz <tashimiz@stdent.42tokyo.jp>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/10 19:38:12 by tashimiz          #+#    #+#             */
-/*   Updated: 2022/03/10 19:38:13 by tashimiz         ###   ########.fr       */
+/*   Updated: 2022/03/10 19:51:47 by tashimiz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ t_info	*info_new(int cnt)
 {
 	t_info	*new;
 
-	new = (t_info *)calloc(1, sizeof(t_info));
+	new = (t_info *)ft_calloc(1, sizeof(t_info));
 	if (new == NULL)
 		return (NULL);
 	new->alternate = false;

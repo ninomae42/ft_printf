@@ -6,7 +6,7 @@
 /*   By: tashimiz <tashimiz@stdent.42tokyo.jp>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/10 19:37:52 by tashimiz          #+#    #+#             */
-/*   Updated: 2022/03/10 19:37:53 by tashimiz         ###   ########.fr       */
+/*   Updated: 2022/03/10 19:51:06 by tashimiz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ char	*itoa_base_8byte_u(unsigned long long int n, char *base)
 {
 	char	*p_ret;
 
-	p_ret = (char *)calloc(count_digit_base_u(n, base) + 1, sizeof(char));
+	p_ret = (char *)ft_calloc(count_digit_base_u(n, base) + 1, sizeof(char));
 	if (p_ret == NULL)
 		return (NULL);
 	if (n == 0)

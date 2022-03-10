@@ -24,15 +24,26 @@ ssize_t	put_zero_pad_di(char *nbr, t_info *info, size_t padding_len_num)
 	char	*pad;
 	size_t	ret;
 
+	if (info->precision == 0 && ft_atoi(nbr) == 0)
+		return (0);
 	pad = create_padding(padding_len_num, '0');
 	if (pad == NULL)
 		return (-1);
 	ret = 0;
 	if (is_sign_flag_valid(nbr, info))
 		ret = ft_putchar_cnt(get_sign_char(info));
-	if (padding_len_num > 0)
+	if (ft_atoi(nbr) < 0 && 0 < padding_len_num)
+	{
+		ret += ft_putchar_cnt('-');
 		ret += ft_putstr_cnt(pad);
-	ret += ft_putstr_cnt(nbr);
+		ret += ft_putstr_cnt(nbr + 1);
+	}
+	else
+	{
+		if (0 < padding_len_num)
+			ret += ft_putstr_cnt(pad);
+		ret += ft_putstr_cnt(nbr);
+	}
 	free(pad);
 	return (ret);
 }
@@ -43,8 +54,8 @@ ssize_t	put_pad_di(char *nbr,
 	char	*pad;
 	size_t	ret;
 
-	if (is_sign_flag_valid(nbr, info) && info->zero_padding
-		&& info->precision == -1)
+	if ((is_sign_flag_valid(nbr, info) || ft_atoi(nbr) < 0)
+		&& info->zero_padding && info->precision == -1)
 		return (put_zero_pad_di(nbr, info, padding_len));
 	pad = create_padding(padding_len, get_pad_char(info));
 	if (pad == NULL)

@@ -6,13 +6,14 @@
 /*   By: tashimiz <tashimiz@stdent.42tokyo.jp>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/10 19:37:16 by tashimiz          #+#    #+#             */
-/*   Updated: 2022/03/10 20:08:53 by tashimiz         ###   ########.fr       */
+/*   Updated: 2022/03/12 23:54:50 by tashimiz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/ft_printf.h"
 
-ssize_t	put_arg(t_info *info, va_list *ap);
+static ssize_t	put_arg(t_info *info, va_list *ap);
+static int		put_til_percent(char **fmt, int cnt);
 
 int	ft_printf(const char *fmt, ...)
 {
@@ -38,12 +39,12 @@ int	ft_printf(const char *fmt, ...)
 			free(info);
 		}
 		else
-			cnt += ft_putchar_cnt(*fmt++);
+			cnt = put_til_percent((char **)&fmt, cnt);
 	}
 	return (cnt);
 }
 
-ssize_t	put_arg(t_info *info, va_list *ap)
+static ssize_t	put_arg(t_info *info, va_list *ap)
 {
 	ssize_t	res;
 
@@ -67,4 +68,21 @@ ssize_t	put_arg(t_info *info, va_list *ap)
 		res = ERROR;
 	info->cnt = res;
 	return (res);
+}
+
+static int	put_til_percent(char **fmt, int cnt)
+{
+	size_t	len;
+	ssize_t	ret;
+
+	len = 0;
+	while ((*fmt)[len] != '\0' && (*fmt)[len] != '%')
+		len++;
+	if ((size_t)INT_MAX < len || (size_t)INT_MAX < (size_t)cnt + len)
+		return (ERROR);
+	ret = write(1, *fmt, len);
+	if (ret != -1)
+		(*fmt) += ret;
+	ret = ret + (ssize_t)cnt;
+	return ((int)ret);
 }
